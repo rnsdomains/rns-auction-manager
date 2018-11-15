@@ -1,0 +1,34 @@
+<% layout('layout') -%>
+
+<h1>Setup</h1>
+<ol class="setup">
+    <li>
+        <a href="https://metamask.io/" target="_blank">Install MetaMask</a>
+    </li>
+    <li>
+        Connect MetaMask to RSK:
+        <ol>
+            <li>Open 'Network' selector
+                <img src="/images/setup-metamask.png" width="700" class="img-responsive" /></li>
+            <li>Select 'Custom RPC'</li>
+            <li>Complete 'New RPC URL' with <a href="https://public-node.rsk.co:443" role="none">https://public-node.rsk.co:443</a> and save.
+                <img src="/images/setup-custom-metamask.png" width="700" class="img-responsive" /></li>
+        </ol>
+    </li>
+    <li>Add RIF token (optional):
+        <ol>
+            <li>Open 'Add token'</li>
+            <li>Go to 'Custom token'</li>
+            <li>Complete with
+                <ul>
+                    <li>Token address: <a href="#" onclick="document.location=config.explorer.url + config.explorer.address + '0x2acc95758f8b5f583470ba265eb685a8f45fc9d5';return false;">0x2acc95758f8b5f583470ba265eb685a8f45fc9d5</a></li>
+                    <li>Token symbol: RIF</li>
+                    <li>Decimals of Precision: 18</li>
+                </ul>
+            </li>
+            <li>Add the token</li>
+            <li>Now you are ready to start using the manager, <a href="/register-a-domain">register your domain</a>!</li>
+        </ol>
+        <img src="/images/setup-metamask-final.png" width="700" class="img-responsive" />
+    </li>
+</ol>

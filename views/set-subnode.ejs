@@ -1,0 +1,32 @@
+<% layout('layout') -%>
+
+<h1>Set subnode owner</h1>
+
+<p>Set a subnode for an owned node.</p>
+
+<% btnId = 'NOBTN' %>
+<% include templates/name.ejs %>
+
+<div class="form-group">
+    <label for="label" class="control-label">Subdomain label</label>
+    <div class="input-group" id="label-group">
+        <input type="text" class="form-control" id="label">
+        <div id="subdomain-suffix" class="input-group-addon tld-addon"></div>
+    </div>
+</div>
+
+<% addrId = 'set-subnode' %>
+<% addrText = 'Set subnode owner' %>
+<% include templates/address.ejs %>
+
+<br><br>
+
+<div id="action-alert"></div>
+
+<% include templates/no-metamask.ejs %>
+
+<hr>
+
+<p>Learn more about subdomains in the <a href="https://docs.rns.rsk.co/architecture/registry">documentation page</a>.</p>
+
+<script src="/scripts/set-subnode.js"></script>

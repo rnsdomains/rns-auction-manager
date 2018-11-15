@@ -1,0 +1,36 @@
+<% layout('layout') -%>
+
+<h1>Set node owner</h1>
+
+<p>Set the node's owner.</p>
+
+<% btnId = 'owner' %>
+<% btnText = 'Check domain owner' %>
+<%- include templates/name %>
+
+<br />
+
+<% include templates/no-metamask.ejs %>
+
+<div id="no-owner" class="response" style="display: none;">
+    This entry has no owner.<br><br>
+    <a class="btn btn-default" href="/status">Check the domain status</a>
+</div>
+
+<br>
+
+<div id="owner-response" class="response hide-on-name-keyup" style="display: none;">
+    <% addrId = 'set-owner' %>
+    <% addrText = 'Set owner' %>  
+    <% include templates/address.ejs %>
+
+    <br><br>
+
+    <div id="action-alert"></div>
+</div>
+
+<hr>
+
+<p>Learn more about the ownership of domains in the <a href="https://docs.rns.rsk.co/architecture/registry">documentation page</a>.</p>
+
+<script src="/scripts/set-owner.js"></script>

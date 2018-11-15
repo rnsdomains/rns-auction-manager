@@ -1,0 +1,25 @@
+<% layout('layout') -%>
+
+<h1>Domain status</h1>
+
+<p>Check the current status of a domain and sub-domain.</p>
+
+<% btnId = 'status' %>
+<% btnText = 'Check status' %>
+<%- include templates/name %>
+
+<%- include templates/server-error %>
+
+<div class="row hide-on-name-keyup" id="result" style="display: none;">
+    <div class="col-md-12">
+        <h2>State: <span id="domain-state"></span></h2>
+        <p id="domain-action-text"></p>
+        <div id="domain-action"></div>
+    </div>
+</div>
+
+<hr>
+
+<p>Learn more about the auction states in the <a href="https://docs.rns.rsk.co/architecture/registrar/#states">documentation page</a>.</p>
+
+<script src="/scripts/domain-status.js"></script>

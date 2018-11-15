@@ -1,0 +1,22 @@
+{
+  "name": "rns-manager",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~3.1.0",
+    "ejs": "~2.5.7",
+    "ejs-locals": "^1.0.2",
+    "eth-ens-namehash": "^2.0.8",
+    "express": "~4.16.3",
+    "morgan": "~1.9.0",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.0.0",
+    "serve-favicon": "^2.5.0",
+    "web3": "^0.15.3"
+  }
+}

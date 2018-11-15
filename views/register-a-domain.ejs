@@ -1,0 +1,148 @@
+<% layout('layout') -%>
+
+<h1>Register a domain</h1>
+
+<p>Check the domain status and follow the steps to bid on an auciton for a domain.</p>
+
+<% btnId = 'status' %>
+<% btnText = 'Get auction status' %>
+<%- include templates/name %>
+
+<div class="row hide-on-name-keyup" id="result" style="display: none;">
+    <div class="col-md-12">
+        <h2>State: <span id="domain-state"></span></h2>
+        <p id="domain-action-text"></p>
+        <div id="domain-action"></div>
+    </div>
+</div>
+
+<% include templates/no-metamask.ejs %>
+
+<div class="domain-registration-stage-panel hide-on-name-keyup" style="display:none;">
+
+    <h3>Domain registration stage</h3>
+
+    <ul id="domain-steps" class="nav nav-tabs">
+        <li><a href="#" title="Start auction">1. Start auction</a></li>
+        <li><a href="#" title="New bid">2. New bid</a></li>
+        <li><a href="#" title="Unseal bid">3. Unseal bid</a></li>
+        <li><a href="#" title="Finalize auction">4. Finalize auction</a></li>
+    </ul>
+
+    <div class="register-content">
+        <section id="start-auction" class="step">
+            <p>The domain is open to auction, to start the auction press the 'Start auction' button and confirm the transaction in MetaMask.</p>
+    
+            <button id="start-auction-button" class="btn btn-default action">Start Auction</button>
+            <i id="loading-start-auction" class="fas fa-spinner loading" style="display:none;"></i>
+
+            <div class="alert alert-success alert-dismissible" style="display: none;">
+                <b>Successful transaction!</b>
+                <p>Check the status in the explorer: <a target="_blank" href="" class="explorer-link"></a></p>
+                <p>The next step is biding for the name, after the transaction is mined, you can continue:</p>
+                <button class="btn btn-default" onclick="handleGetStatus()">Continue to the next step</button>
+            </div>
+        </section>
+
+        <section id="bid" class="step">
+            <p>The auction for the name has started at <span class="auction-date"></span> and its open to anyone to bid on until <span class="auction-end-date"></span>.</p>
+            <p>Select the amount of RIF Tokens you want to bid, and a salt (random number, use the random button to get one), keep in mind that you will need the number later in the registration process.</p>
+
+            <div class="form-group">
+                <label for="tokens">Tokens</label>
+                <div class="input-group">
+                    <input type="number" name="tokens" id="bid-tokens" class="form-control" min=1>
+                    <div class="input-group-addon">RIF</div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label for="salt">Salt</label>
+                <div class="input-group">
+                    <div class="input-group">
+                        <input type="number" name="salt" id="bid-salt" class="form-control" min=0>
+                    </div>
+                    <button type="button" class="btn btn-default" onclick="$('#bid-salt').val(Math.floor(Math.random() * 10000))">random</button>
+                </div>
+            </div>
+
+            <button id="make-bid" type="submit" class="btn btn-default action">Bid</button>
+            <i id="loading-make-bid" class="fas fa-spinner loading" style="display: none;"></i>
+
+            <br><br>
+
+            <div class="alert alert-success alert-dismissible" style="display:none;">
+                <b>Successful transaction!</b>
+                <p>Check the status in the explorer: <a target="_blank" href="" class="explorer-link"></a></p>
+                <p>Come back to reveal your bid!</p>
+                <button class="btn btn-default download" onclick="downloadBid(this)">Backup your bid information</button>
+                <div class="btn btn-default addeventatc" title="Set up a calendar reminder">
+                    Set up a calendar reminder
+                    <span class="start"></span>
+                    <span class="end"></span>
+                    <span class="timezone"></span>
+                    <span class="title"></span>
+                    <span class="description"></span>
+                    <span class="location"></span>
+                </div>
+            </div>
+        </section>
+
+        <section id="reveal" class="step">
+            <p>The domain is on reveal stage of the auction, if you had made a bid, reveal it to participate and get the ownership of the name.</p>
+
+            <div class="form-group">
+                <label for="tokens">Tokens</label>
+                <div class="input-group">
+                    <input type="number" name="tokens" id="reveal-tokens" class="form-control" min=1>
+                    <div class="input-group-addon">RIF</div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label for="salt">Salt</label>
+                <input type="number" name="salt" id="reveal-salt" class="form-control" min=0>
+            </div>
+
+            <button id="reveal-bid" type="submit" class="btn btn-default action">Reveal</button>
+            <i id="loading-reveal-bid" class="fas fa-spinner loading" style="display:none;"></i>
+
+            <br><br>
+
+            <div class="alert alert-success alert-dismissible" style="display:none;">
+                <b>Successful transaction!</b>
+                <p>Check the status in the explorer: <a target="_blank" href="" class="explorer-link"></a></p>
+                <p>The next step is wait until the reveal time ends, if you win, the domain name will be yours.</p>
+            </div>
+        </section>
+
+        <section id="finalize" class="step">
+            <p>The auction has finished! Click on finalize auction, if you are the winner, take ownership of your new name.</p>
+
+            <button id="finalize-auction" type="submit" class="btn btn-default action">Finalize Auction</button>
+            <i id="loading-finalize-auction" class="fas fa-spinner loading" style="display:none;"></i>
+
+            <br><br>
+
+            <div class="alert alert-success alert-dismissible" style="display:none;">
+                <b>Successful transaction!</b>
+                <p>
+                    Check the status in the explorer: <a target="_blank" href="" class="explorer-link"></a><br>
+                    <b>The domain is owned!</b>
+                </p>
+                <button class="btn btn-default" onclick="location.href='set-addr?name=' + $('#name').val(); return false;">Set address resolution</button>
+            </div>
+        </section>
+
+        <div class="alert alert-danger alert-dismissible" id="error-response" style="display: none;">
+            <p><b>There was on error processing your action!</b></p>
+            <p><span id="error-detail"></span></p>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<p>Read more on the <a href="https://docs.rns.rsk.co/Operation/Register-a-name/" title="Registrer a name">documentation page</a>.</p>
+
+<script src="/scripts/register-a-domain.js"></script>

@@ -1,0 +1,33 @@
+<% layout('layout') -%>
+
+<h1>Resolve a domain</h1>
+
+<p>Search the resolution address of a domain.</p>
+
+<% btnId = 'resolve' %>
+<% btnText = 'Resolve domain' %>
+<%- include templates/name %>
+
+<br><br>
+
+<%- include templates/server-error %>
+
+<div id="result" class="row hide-on-name-keyup" style="display: none;">
+    <div class="col-md-12">
+        <div class="thumbnail">
+            <div class="caption">
+                <p>
+                    <b id="address"></b>
+                    <i id="copy" class="far fa-copy" onclick="copy()"></i>
+                <p>
+            </div>
+        </div>
+        <img id="qr">
+    </div>
+</div>
+
+<hr>
+
+<p>Learn more about the name resolution in the <a href="https://docs.rns.rsk.co/architecture/resolver">documentation page</a>.</p>
+
+<script src="/scripts/resolve.js"></script>

@@ -1,0 +1,13 @@
+<div class="form-group">
+    <label for="name" class="control-label">Domain Name</label>
+    <div class="input-group" id="name-group">
+        <input type="text" class="form-control" id="name">
+        <div class="input-group-addon tld-addon"></div>
+    </div>
+</div>
+
+<% if (btnId !== 'NOBTN') { %>
+    <button id="<%- btnId %>" type="submit" class="btn btn-default disable-on-name-invalid"><%- btnText %></button>
+    <i id="name-action-loading" class="fas fa-spinner loading" style="display: none;"></i>
+<% } %>
+

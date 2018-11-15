@@ -1,0 +1,39 @@
+<% layout('layout') -%>
+
+<h1>Set address</h1>
+
+<p>Set the RSK address resolved by the domain.</p>
+
+<% btnId = 'addr' %>
+<% btnText = 'Check resolution address' %>
+<%- include templates/name %>
+
+<div class="alert alert-danger alert-dismissible" id="error-response" style="display: none;"></div>
+
+<br>
+
+<% include templates/no-metamask.ejs %>
+
+<div id="no-resolution" class="response hide-on-name-keyup" style="display: none;">
+    This entry has no resolver. <br><br>
+    <a class="btn btn-default" href="/set-resolver">Set resolver</a>
+</div>
+
+<br>
+
+<div id="addr-response" class="response hide-on-name-keyup" style="display: none;">
+    <% addrId = 'set-addr' %>
+    <% addrText = 'Set address' %>
+    <% include templates/address.ejs %>
+
+    <br><br>
+
+    <div id="action-alert"></div>
+    <button class="btn btn-default" id="check-resolution" onclick="window.location.href = '/resolve?name=' + $('#name').val()" style="display: none;">Get the QR!</button>
+</div>
+
+<hr>
+
+<p>Learn more about the name resolution in the <a href="https://docs.rns.rsk.co/architecture/resolver">documentation page</a>.</p>
+
+<script src="/scripts/set-addr.js"></script>

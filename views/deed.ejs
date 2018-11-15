@@ -1,0 +1,70 @@
+<% layout('layout') -%>
+
+<h1>Domain ownership admin</h1>
+
+<p>Manage the domain ownership.</p>
+
+<% btnId = 'deed' %>
+<% btnText = 'Check domain' %>
+<%- include templates/name %>
+
+<br><br>
+
+<%- include templates/server-error %>
+
+<div id="result-container" class="hide-on-name-keyup" style="display:none;">
+    <div class="row">
+        <div class="col-sm-3">
+            <label>Owner:</label>
+        </div>
+        <div class="col-sm-9">
+            <b id="owner"></b>
+        </div>
+
+        <div class="col-sm-3">
+            <label>Token quantity:</label>
+        </div>
+        <div class="col-sm-9">
+            <b id="token-quantity"></b>
+        </div>
+
+        <div class="col-sm-3">
+            <label>Expiration date:</label>
+        </div>
+        <div class="col-sm-9">
+            <b id="expiration"></b>
+        </div>
+
+        <div class="col-sm-3">
+            <label>Stage:</label>
+        </div>
+        <div class="col-sm-9">
+            <b id="stage"></b>
+        </div>
+    </div>
+
+    <br>
+
+    <% include templates/no-metamask.ejs %>
+
+    <div id="pay-rent-tab">
+        <button id="pay-rent" class="btn btn-default">Pay rent (1 RIF)</button>
+        <i id="pay-rent-loading" class="fas fa-spinner loading" style="display: none;"></i>
+        
+        <div class="alert alert-success alert-dismissible" style="display:none;">
+            <b>Successful transaction!</b>
+            <p>Check the status in the explorer: <a target="_blank" href="" class="explorer-link"></a></p>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-danger alert-dismissible" id="error-message" style="display: none;">
+    <p><b>There was on error processing your action!</b></p>
+    <p><span id="error-detail"></span></p>
+</div>
+
+<hr>
+
+<p>Read more on the <a href="https://docs.rns.rsk.co/Operation/Register-a-name/" title="Registrer a name">documentation page</a>.</p>
+
+<script src="/scripts/deed.js"></script>

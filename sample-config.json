@@ -1,0 +1,21 @@
+{
+    "node": "https://public-node.rsk.co",
+    "port": 3000,
+    "tld": "rsk",
+    "chainId": 30,
+    "explorer": {
+        "url": "http://explorer.rsk.co/",
+        "tx": "tx/",
+        "address": "address/"
+    },
+    "googleAnalytics": "",
+    "contracts": {
+        "rif": "0x00",
+        "registrar": "0x00",
+        "rns": "0x00"
+    },
+    "periods": {
+        "auction": 432000,
+        "reveal": 172800
+    }
+}

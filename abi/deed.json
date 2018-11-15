@@ -1,0 +1,68 @@
+[
+	{
+		"constant": true,
+      	"inputs": [],
+      	"name": "tokenQuantity",
+      	"outputs": [
+        	{ "name": "", "type": "uint256" }
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+    },
+    {
+		"constant": true,
+		"inputs": [],
+		"name": "previousOwner",
+		"outputs": [
+			{ "name": "", "type": "address" }
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+    },
+    {
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{ "name": "", "type": "address" }
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+    },
+    {
+		"constant": true,
+		"inputs": [],
+		"name": "expirationDate",
+		"outputs": [
+			{ "name": "", "type": "uint256" }
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+    },
+    {
+		"constant": true,
+		"inputs": [],
+		"name": "expired",
+		"outputs": [
+			{ "name": "", "type": "bool" }
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+    },
+    {
+		"constant": true,
+		"inputs": [],
+		"name": "canPayRent",
+		"outputs": [
+			{ "name": "", "type": "bool" }
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+    }
+]
