@@ -253,3 +253,8 @@ function downloadBid (e) {
   
 	document.body.removeChild(element)
 }
+
+function random() {
+	var randomBytes = window.crypto.getRandomValues(new Uint8Array(32))
+	return '0x' + Array.from(randomBytes).map((byte) => byte.toString(16)).join('')
+}

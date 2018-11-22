@@ -60,9 +60,9 @@
                 <label for="salt">Salt</label>
                 <div class="input-group">
                     <div class="input-group">
-                        <input type="number" name="salt" id="bid-salt" class="form-control" min=0>
+                        <input type="text" name="salt" id="bid-salt" class="form-control" min=0>
                     </div>
-                    <button type="button" class="btn btn-default" onclick="$('#bid-salt').val(Math.floor(Math.random() * 10000))">random</button>
+                    <button type="button" class="btn btn-default" onclick="$('#bid-salt').val(random())">random</button>
                 </div>
             </div>
 
