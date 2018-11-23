@@ -37,10 +37,18 @@ function handleGetStatus () {
  */
 function displayDeed (response) {
     let deed = JSON.parse(response)
-  
+
+	if (deed === '0x00') {
+		let name = $('#name').val()
+        $('#no-owner').html('"' + name + '.' + config.tld + '" domain has nor owner neither auction winner.<br><br>' +
+            '<a class="btn btn-default btn-sm" href="/domain-status?name=' + $('#name').val() + '">Check the domain status</a>')
+			.show()
+		return
+	}
+
     if (!deed.expired && deed.canPayRent) $('#pay-rent-tab').show()
     else $('#pay-rent-tab').hide()
-  
+
     let expiration = '<span>' + new Date(deed.expirationDate * 1000).toLocaleString() + '</span>'
 	let stage = (!deed.expired
 			? '<span> </span><span class="label label-success">Active</span>' +

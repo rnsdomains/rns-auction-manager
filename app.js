@@ -59,7 +59,7 @@ app.get('/deeddata', function (req, res) {
     let entry = registrar.entries(hash)
 
     if(entry[1] === "0x0000000000000000000000000000000000000000")
-        return res.status(404).send(JSON.stringify(entry))
+        return res.status(200).send(JSON.stringify('0x00'))
 
     let deed = deedInstance.at(entry[1])
 
