@@ -10,10 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
 /**
  * Get status from backend
  */
-function handleGetStatus() {
+function handleGetStatus () {
 	let name = $('#name').val()
 
-	history.pushState(name, document.title, '?name=' + name)
+	pushState(name)
 
 	$.ajax({
 		type: 'GET',
@@ -35,7 +35,7 @@ function displayStatus (response) {
 	let name = $('#name').val()
 
 	let label = '', actionText = '', action = ''
-	
+
 	switch (status[0]) {
 		case '0':
 			label = '<span class="label label-success">Open</span>'
@@ -71,6 +71,6 @@ function displayStatus (response) {
  * @param {name} name url parameter
  * @param {message} message display message
  */
-function linkToRegister(name, message) {
+function linkToRegister (name, message) {
     return '<a class="btn btn-default btn-sm" href="/register-a-domain?name=' + name + '">' + message + '</a>'
 }

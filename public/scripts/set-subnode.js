@@ -42,7 +42,6 @@ function handleValidations () {
 	function displayValidations () {
 		let valid =  nameValid && labelValid
 		$('#address').attr('disabled', !valid)
-		
 
 		let ready = valid && addressValid
 		$('#set-subnode').attr('disabled', !ready)

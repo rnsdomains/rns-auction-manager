@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	hasMetaMask()
 
 	nameUrlParameter(handleGetRecord)
-})  
+})
 
 /**
  * Get a domain resolver address with MetaMask
@@ -20,8 +20,8 @@ function handleGetRecord () {
 
 	let hash = namehash(name + '.' + config.tld)
 
-	history.pushState(name, document.title, "?name=" + name)
-	
+	pushState(name)
+
 	RNS.resolver(hash, (err, res) => {
 		$('#display-address').html(res)
 

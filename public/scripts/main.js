@@ -7,7 +7,7 @@ function init () {
 /**
  * displays alert if MetaMask is not installed - requires #metamask-alert element
  */
-function hasMetaMask() {
+function hasMetaMask () {
 	var result = (typeof web3 !== 'undefined')
 	if (result) $('#metamask-alert').hide()
     else $('#metamask-alert').show()
@@ -19,7 +19,7 @@ function hasMetaMask() {
  * @param {string} loading loading element id to display
  * @param {string} button button element id to disable
  */
-function executeTx(loading, button) {
+function executeTx (loading, button) {
 	$(loading).show()
 	$(button).prop('disabled', true)
 }
@@ -31,7 +31,7 @@ function executeTx(loading, button) {
  * @param {string} error error on MetaMask tx execution
  * @param {string} result result on eMetaMask tx execution finalization
  */
-function finalizeTx(loading, button, error, result) {
+function finalizeTx (loading, button, error, result) {
 	handleMetamask(error, result, '#action-alert')
 	$(loading).hide()
 	$(button).prop('disabled', false)
@@ -76,7 +76,6 @@ function namehash (domain) {
 			node = web3.sha3(node + labelHash, {encoding: 'hex'}).slice(2)
 		}
 	}
-	
 	return `0x${node}`
 }
 
@@ -84,8 +83,8 @@ function namehash (domain) {
  * RSKIP-0060 Checksum Address ecnoding
  * @param {string} address Address to get checksum of
  * @param {number} chainId SLIP-44 chain id
- */  
-function toChecksumAddress(address, chainId = null) {
+ */
+function toChecksumAddress (address, chainId = null) {
     const strip_address = (address.slice(0, 2) === '0x' ? address.slice(2) : address).toLowerCase()
     const prefix = chainId != null ? (chainId.toString() + '0x') : ''
     const keccak_hash = web3.sha3(prefix + strip_address).toString('hex')
@@ -107,7 +106,7 @@ function isValidName (n) {
     if (n === "") return false
     let split = n.split('.')
     split.push('')
-    
+
     let i = 0
     while (split[i].length > 0) i++
     return i === split.length - 1
@@ -129,13 +128,13 @@ function isValidLabel (l) {
  */
 function isAddress(address) {
     return /^0x[0-9a-fA-F]{40}$/.test(address)
-}  
+}
 
 /**
  * Check wether address is upper or lower case, or has correct checksum
  * @param {string} address address to check with checksum
  */
-function isValidAddress(address) {
+function isValidAddress (address) {
     var checksummed = toChecksumAddress(address, config.chainId)
     return (isAddress(address) && (
         address === address.toUpperCase().replace('X','x') ||
@@ -146,9 +145,9 @@ function isValidAddress(address) {
 
 /**
  * returns if the address is not null
- * @param {string} address 
+ * @param {string} address
  */
-function notNullAddress(address) {
+function notNullAddress (address) {
     return address !== '0x0000000000000000000000000000000000000000' && address !== '0x00' && address !== null
 }
 
@@ -238,7 +237,7 @@ function getRegistrar () {
 /**
  * returns the web3 instance of RIF Token contract
  */
-function getRIF() {
+function getRIF () {
     var RIFAbi
 	$.getJSON('/contracts/rif.json', (data) => { RIFAbi = data })
 
@@ -273,4 +272,12 @@ function getResolver (resolverAddress) {
     var resolver = resolverInstance.at(resolverAddress)
 
     return resolver
+}
+
+/**
+ * Saves in URL actual name state
+ * @param {string} name to push in state
+ */
+function pushState (name) {
+    history.pushState(name, document.title, '?name=' + name)
 }

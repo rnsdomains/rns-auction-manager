@@ -32,10 +32,8 @@
     <div class="register-content">
         <section id="start-auction" class="step">
             <p>The domain is open to auction, to start the auction press the 'Start auction' button and confirm the transaction in MetaMask.</p>
-    
             <button id="start-auction-button" class="btn btn-default action">Start Auction</button>
             <i id="loading-start-auction" class="fas fa-spinner loading" style="display:none;"></i>
-
             <div class="alert alert-success alert-dismissible" style="display: none;">
                 <b>Successful transaction!</b>
                 <p>Check the status in the explorer: <a target="_blank" href="" class="explorer-link"></a></p>
@@ -47,7 +45,6 @@
         <section id="bid" class="step">
             <p>The auction for the name has started at <span class="auction-date"></span> and its open to anyone to bid on until <span class="auction-end-date"></span>.</p>
             <p>Select the amount of RIF Tokens you want to bid, and a salt (random number, use the random button to get one), keep in mind that you will need the number later in the registration process.</p>
-
             <div class="form-group">
                 <label for="tokens">Tokens</label>
                 <div class="input-group">
@@ -55,7 +52,6 @@
                     <div class="input-group-addon">RIF</div>
                 </div>
             </div>
-    
             <div class="form-group">
                 <label for="salt">Salt</label>
                 <div class="input-group">
@@ -98,7 +94,6 @@
                     <div class="input-group-addon">RIF</div>
                 </div>
             </div>
-    
             <div class="form-group">
                 <label for="salt">Salt</label>
                 <input type="number" name="salt" id="reveal-salt" class="form-control" min=0>
@@ -118,7 +113,6 @@
 
         <section id="finalize" class="step">
             <p>The auction has finished! Click on finalize auction, if you are the winner, take ownership of your new name.</p>
-
             <button id="finalize-auction" type="submit" class="btn btn-default action">Finalize Auction</button>
             <i id="loading-finalize-auction" class="fas fa-spinner loading" style="display:none;"></i>
 

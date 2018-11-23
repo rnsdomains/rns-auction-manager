@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	hasMetaMask()
 
 	nameUrlParameter(handleGetRecord)
-})  
+})
 
 /**
  * Get a domain's owner with MetaMask
@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
 function handleGetRecord () {
 	let RNS = getRNS()
 	let name = $('#name').val()
-	
+
 	let hash = namehash(name + '.' + config.tld)
 
-	history.pushState(name, document.title, "?name=" + name)
+	pushState(name)
 
 	RNS.owner(hash, (err, res) => {
 		$('#display-address').html(toChecksumAddress(res, config.chainId))

@@ -8,7 +8,7 @@ h3 {
     font-size: 20px;
 }
 
-.page-metadata{
+.page-metadata {
     text-transform: uppercase;
     font-size: 18px;
     margin: 0 0 30px;
@@ -17,20 +17,20 @@ h3 {
     letter-spacing: 1px;
 }
 
-.content-wrap{
+.content-wrap {
 	padding: 0;
 }
 
 .page-header {
     height: 90px;
 }
-h1.page-title{	
+h1.page-title {
     margin-bottom: -5px;
 }
 
 #main-content {
-	float: right; 
-	padding-left: 20px; 
+	float: right;
+	padding-left: 20px;
 	margin-top: -15px;
 }
 
@@ -63,7 +63,7 @@ h1.page-title{
 	}
 }
 
-#domain-status-result p{
+#domain-status-result p {
 	font-size: 18px!important;
     margin: 30px 0 10px!important;
     font-weight: 500;
@@ -77,7 +77,6 @@ h1.page-title{
 	margin-top: 10px;
 }
 
-/*  */
 .nav>li>a {
     position: relative;
     display: block;
@@ -93,36 +92,40 @@ h1.page-title{
     border: 1px solid transparent;
     border-radius: 4px 4px 0 0;
 }
-.nav-tabs>li.active>a, 
-.nav-tabs>li.active>a:focus, 
-.nav-tabs>li.active>a:hover {
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
     color: #555;
     cursor: default;
     background-color: #fff;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
 }
+
 .register-content{
 	min-height: 100px;
     padding: 20px 0 0 0;
 }
+
 #bid .input-group {
 	height: 50px;
 }
+
 .row .space {
 	padding: 20px 15px;
 }
+
 .domain-registration-stage-panel {
 	padding-top: 20px;
 }
+
 #start-auction .alert-success {
 	margin-top: 20px;
     padding-bottom: 20px;
 }
-#bid .auction-date,
-#bid .auction-end-date {
+
+#bid .auction-date, #bid .auction-end-date {
 	font-weight: bold;
 }
+
 #bid .btn.btn-default.addeventatc {
 	background: #53c676!important;
 	color: #fff!important;
@@ -131,10 +134,12 @@ h1.page-title{
     height: 50px;
     box-shadow: none;
 }
+
 #error-detail{
 	font-size: 11px;
     line-height: 11px;
 }
+
 .setup ol li {
 	padding-bottom: 15px;
 }
@@ -159,4 +164,21 @@ h1.page-title{
         white-space: nowrap;
         overflow: hidden;
     }
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+.loading {
+    margin: 0 10px;
+    animation-name: spin;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
 }

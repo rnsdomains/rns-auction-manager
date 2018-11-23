@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function handleGetStatus () {
 	let name = $("#name").val()
 
-	history.pushState(name, document.title, "?name=" + name);
+	pushState(name)
 
 	$('#owner').html('')
 	$('#token-quantity').html('')
@@ -56,12 +56,12 @@ function displayDeed (response) {
 			: '<span> </span><span class="label label-danger">Expired</span>')
 
 	if (deed.canPayRent) hasMetaMask()
-	
+
 	$('#owner').html('<a target="_blank" href="' + config.explorer.url + config.explorer.address + deed.owner + '">' + deed.owner + '</a>')
 	$('#token-quantity').html(toRIF(deed.tokenQuantity))
 	$('#expiration').html(expiration)
 	$('#stage').html(stage)
-	$("#result-container").show()
+	$('#result-container').show()
 }
 
 /**
@@ -78,23 +78,24 @@ function toRIF (value) {
 function handlePayRent () {
 	var RIF = getRIF()
 	executeTx('#pay-rent-loading', '#pay-rent')
-	let name = $('#NAME').val()
+
+	let name = $('#name').val()
 
 	let sha3 = web3.sha3(name)
 
 	RIF.transferAndCall(config.contracts.registrar, 1e18, '0xe1ac9915' + sha3.slice(2), (err, res) => {
-		$("#pay-rent-loading").hide()
-		
-		if(err){
+		$('#pay-rent-loading').hide()
+
+		if (err) {
 			$('#pay-rent').prop('disabled', false)
-			$("#error-message").show()
-			$("#error-detail").html(err)
-		}else{
-			var c = $("#pay-rent-tab .alert-success")
-			var l = $("a.explorer-link", c)
+			$('#error-message').show()
+			$('#error-detail').html(err)
+		} else {
+			var c = $('#pay-rent-tab .alert-success')
+			var l = $('a.explorer-link', c)
 			c.show()
 			l.html(res)
-			l.attr("href", config.explorer.url + config.explorer.tx + res)
+			l.attr('href', config.explorer.url + config.explorer.tx + res)
 		}
 	})
 }
