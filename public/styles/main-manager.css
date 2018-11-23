@@ -147,3 +147,16 @@ h1.page-title{
 .on-error .form-control{
     border-color: red;
 }
+
+#main-content {
+    padding: 0;
+}
+
+@media(max-width: 520px) {
+    .address-text {
+        width: 300px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
