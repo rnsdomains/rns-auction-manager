@@ -4,15 +4,17 @@
 
 <p>Set the node's owner.</p>
 
-<% btnId = 'owner' %>
-<% btnText = 'Check domain owner' %>
-<%- include templates/name %>
+<form onsubmit="return handleGetRecord()">
+    <% btnId = 'owner' %>
+    <% btnText = 'Check domain owner' %>
+    <%- include templates/name %>
+</form>
 
 <br />
 
 <% include templates/no-metamask.ejs %>
 
-<div id="no-owner" class="response" style="display: none;">
+<div id="no-owner" class="response hide-on-name-keyup" style="display: none;">
     This entry has no owner.<br><br>
     <a class="btn btn-default" href="/status">Check the domain status</a>
 </div>
@@ -20,9 +22,11 @@
 <br>
 
 <div id="owner-response" class="response hide-on-name-keyup" style="display: none;">
-    <% addrId = 'set-owner' %>
-    <% addrText = 'Set owner' %>
-    <% include templates/address.ejs %>
+    <form onsubmit="return handleSetAddr()">
+        <% addrId = 'set-owner' %>
+        <% addrText = 'Set owner' %>
+        <% include templates/address.ejs %>
+    </form>
 
     <br><br>
 

@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 	init()
 
-	$('#deed').click(handleGetStatus)
     $('#pay-rent').click(handlePayRent)
 
 	nameUrlParameter(handleGetStatus)
@@ -29,6 +28,8 @@ function handleGetStatus () {
 		success: (response) => displayDeed(response),
 		error: (xhr, ajaxOptions, thrownError) => $('#server-error').show()
 	})
+
+	return false
 }
 
 /**

@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     init()
 
     $('#name').keyup(handleNameKeyup)
-    $('#resolve').click(handleResolve)
 
     nameUrlParameter(handleResolve)
 })
@@ -24,6 +23,8 @@ function handleResolve () {
         success: (res) => displayResolution(res),
         error: (xhr, ajaxOptions, thrownError) => $('#server-error').show()
     })
+
+    return false
 }
 
 /**

@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	init()
 
 	$('#name').keyup(handleLabelKeyup)
-	$('#status').click(handleGetStatus)
 
 	nameUrlParameter(handleGetStatus)
 })
@@ -24,6 +23,8 @@ function handleGetStatus () {
 		success: (response) => displayStatus(response),
 		error: () => $('#server-error').show()
 	})
+
+	return false
 }
 
 /**

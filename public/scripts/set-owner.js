@@ -3,8 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	$('#name').keyup(handleNameKeyup)
 	$('#address').keyup(handleAddressKeyup)
-	$('#owner').click(handleGetRecord)
-    $('#set-owner').click(handleSetOwner)
 
 	hasMetaMask()
 
@@ -24,7 +22,6 @@ function handleGetRecord () {
 
 	RNS.owner(hash, (err, res) => {
 		$('#display-address').html(toChecksumAddress(res, config.chainId))
-		$('#addr-response').show()
 
 		if (notNullAddress(res)) {
 			$('.setter').attr('disabled', false)
@@ -34,6 +31,8 @@ function handleGetRecord () {
 			$('#no-owner').show()
 		}
 	})
+
+	return false
 }
 
 /**
@@ -52,4 +51,6 @@ function handleSetOwner () {
 
 	RNS.setOwner(hash, address, (err, res) => finalizeTx(
 		'#addr-action-loading', '#set-addr', err, res))
+
+	return false
 }

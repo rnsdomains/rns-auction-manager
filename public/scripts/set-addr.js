@@ -3,8 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	$('#name').keyup(handleNameKeyup)
 	$('#address').keyup(handleAddressKeyup)
-	$('#addr').click(handleGetRecord)
-    $('#set-addr').click(handleSetAddr)
 
 	hasMetaMask()
 
@@ -36,6 +34,8 @@ function handleGetRecord () {
 			$('#no-resolution').show()
 		}
 	})
+
+	return false
 }
 
 /**
@@ -64,4 +64,6 @@ function handleSetAddr () {
 			})
 		}
 	})
+
+	return false
 }

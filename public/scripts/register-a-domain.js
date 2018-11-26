@@ -2,15 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	init()
 
     $('#name').keyup(handleLabelKeyup)
-	$('#status').click(handleGetStatus)
 
 	nameUrlParameter(handleGetStatus)
 
 	hasMetaMask()
 
 	$('#start-auction-button').click(handleStartAuction)
-	$('#make-bid').click(handleBid)
-	$('#reveal-bid').click(handleReveal)
 	$('#finalize-auction').click(handleFinalize)
 })
 
@@ -32,6 +29,8 @@ function handleGetStatus () {
 		success: (response) => displayStatus(response),
 		error: () => $('#server-error').show()
 	})
+
+	return false
 }
 
 /**
@@ -104,6 +103,8 @@ function handleBid () {
 			})
 		}
 	})
+
+	return false
 }
 
 /**
@@ -133,6 +134,8 @@ function handleReveal () {
 			l.attr('href', config.explorer.url + config.explorer.tx + res)
 		}
 	})
+
+	return false
 }
 
 /**

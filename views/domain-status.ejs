@@ -4,9 +4,11 @@
 
 <p>Check the current status of a domain and sub-domain.</p>
 
-<% btnId = 'status' %>
-<% btnText = 'Check status' %>
-<%- include templates/name %>
+<form onsubmit="return handleGetStatus()">
+    <% btnId = 'status' %>
+    <% btnText = 'Check status' %>
+    <%- include templates/name %>
+</form>
 
 <%- include templates/server-error %>
 

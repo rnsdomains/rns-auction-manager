@@ -4,9 +4,11 @@
 
 <p>Manage the domain ownership.</p>
 
-<% btnId = 'deed' %>
-<% btnText = 'Check domain' %>
-<%- include templates/name %>
+<form onsubmit="return handleGetStatus()">
+    <% btnId = 'deed' %>
+    <% btnText = 'Check domain' %>
+    <%- include templates/name %>
+</form>
 
 <br><br>
 

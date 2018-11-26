@@ -3,8 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	$('#name').keyup(handleNameKeyup)
 	$('#address').keyup(handleAddressKeyup)
-	$('#resolver').click(handleGetRecord)
-    $('#set-resolver').click(handleSetResolver)
 
 	hasMetaMask()
 
@@ -28,9 +26,13 @@ function handleGetRecord () {
 		if (notNullAddress(res)) {
 			$('.setter').attr('disabled', false)
 			$('#resolver-response').show()
+		} else {
+			$('.setter').attr('disabled', true)
+			$('#no-owner').show()
 		}
-		else $('.setter').attr('disabled', true)
 	})
+
+	return false
 }
 
 /**
@@ -49,4 +51,6 @@ function handleSetResolver () {
 
 	RNS.setResolver(hash, address, (err, res) => finalizeTx(
 		'#addr-action-loading', '#set-owner', err, res))
+
+	return false
 }

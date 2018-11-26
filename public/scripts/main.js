@@ -151,10 +151,15 @@ function notNullAddress (address) {
     return address !== '0x0000000000000000000000000000000000000000' && address !== '0x00' && address !== null
 }
 
+function shouldNotCleanResult() {
+    return (event.keyCode === 13)
+}
+
 /**
  * UI response when entry on #name is an invalid label
  */
 function handleLabelKeyup () {
+    if (shouldNotCleanResult()) return
     $('.hide-on-name-keyup').hide()
 
     let valid = isValidLabel($('#name').val())
@@ -174,6 +179,7 @@ function handleLabelKeyup () {
  * UI response when entry on #name is an invalid domain
  */
 function handleNameKeyup () {
+    if (shouldNotCleanResult()) return
     $('.hide-on-name-keyup').hide()
 
     let valid = isValidName($('#name').val())
@@ -193,6 +199,7 @@ function handleNameKeyup () {
  * UI response when entry on #address is an invalid address
  */
 function handleAddressKeyup () {
+    if (shouldNotCleanResult()) return
 	let address = isValidAddress($('#address').val())
 
     if (address !== '') {
