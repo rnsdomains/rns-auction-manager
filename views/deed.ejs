@@ -4,13 +4,17 @@
 
 <p>Manage the domain ownership.</p>
 
-<% btnId = 'deed' %>
-<% btnText = 'Check domain' %>
-<%- include templates/name %>
+<form onsubmit="return handleGetStatus()">
+    <% btnId = 'deed' %>
+    <% btnText = 'Check domain' %>
+    <%- include templates/name %>
+</form>
 
 <br><br>
 
 <%- include templates/server-error %>
+
+<div id="no-owner" style="display: none;"></div>
 
 <div id="result-container" class="hide-on-name-keyup" style="display:none;">
     <div class="row">
@@ -50,7 +54,6 @@
     <div id="pay-rent-tab">
         <button id="pay-rent" class="btn btn-default">Pay rent (1 RIF)</button>
         <i id="pay-rent-loading" class="fas fa-spinner loading" style="display: none;"></i>
-        
         <div class="alert alert-success alert-dismissible" style="display:none;">
             <b>Successful transaction!</b>
             <p>Check the status in the explorer: <a target="_blank" href="" class="explorer-link"></a></p>
@@ -65,6 +68,6 @@
 
 <hr>
 
-<p>Read more on the <a href="https://docs.rns.rsk.co/Operation/Register-a-name/" title="Registrer a name">documentation page</a>.</p>
+<p>Read more on the <a href="https://docs.rns.rsk.co/Operation/Register-a-name#the-storage-rent-payment" title="Registrer a name">documentation page</a>.</p>
 
 <script src="/scripts/deed.js"></script>

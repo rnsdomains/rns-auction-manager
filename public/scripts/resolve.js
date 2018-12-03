@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     init()
 
     $('#name').keyup(handleNameKeyup)
-    $('#resolve').click(handleResolve)
 
     nameUrlParameter(handleResolve)
 })
@@ -13,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function handleResolve () {
     let name = $('#name').val()
 
-    history.pushState(name, document.title, '?name=' + name);
+    pushState(name)
 
     $.ajax({
         type: 'GET',
@@ -24,6 +23,8 @@ function handleResolve () {
         success: (res) => displayResolution(res),
         error: (xhr, ajaxOptions, thrownError) => $('#server-error').show()
     })
+
+    return false
 }
 
 /**
@@ -42,7 +43,7 @@ function displayResolution (res) {
         $('#qr').prop('src', 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=' + checksummed + '&choe=UTF-8')
         $('#copy').show()
     } else {
-        $('#address').html('No resolution was found. The domain may be available for registration!<br><br>' + 
+        $('#address').html('No resolution was found. The domain may be available for registration!<br><br>' +
             '<a class="btn btn-default btn-sm" href="/domain-status?name=' + labels[labels.length-1] + '">Check the domain status</a>')
         $('#qr').prop('src', '')
         $('#copy').hide()

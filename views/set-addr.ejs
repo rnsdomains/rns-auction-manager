@@ -4,9 +4,11 @@
 
 <p>Set the RSK address resolved by the domain.</p>
 
-<% btnId = 'addr' %>
-<% btnText = 'Check resolution address' %>
-<%- include templates/name %>
+<form onsubmit="return handleGetRecord()">
+    <% btnId = 'addr' %>
+    <% btnText = 'Check resolution address' %>
+    <%- include templates/name %>
+</form>
 
 <div class="alert alert-danger alert-dismissible" id="error-response" style="display: none;"></div>
 
@@ -22,9 +24,11 @@
 <br>
 
 <div id="addr-response" class="response hide-on-name-keyup" style="display: none;">
-    <% addrId = 'set-addr' %>
-    <% addrText = 'Set address' %>
-    <% include templates/address.ejs %>
+    <form onsubmit="return handleSetAddr()">
+        <% addrId = 'set-addr' %>
+        <% addrText = 'Set address' %>
+        <% include templates/address.ejs %>
+    </form>
 
     <br><br>
 
@@ -34,6 +38,6 @@
 
 <hr>
 
-<p>Learn more about the name resolution in the <a href="https://docs.rns.rsk.co/architecture/resolver">documentation page</a>.</p>
+<p>Learn more about the name resolution in the <a href="https://docs.rns.rsk.co/Architecture/Resolver#addr">documentation page</a>.</p>
 
 <script src="/scripts/set-addr.js"></script>

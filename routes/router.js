@@ -20,7 +20,7 @@ var paths = [
 const config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
 
 var pageData = {
-	title: 'Express', 
+	title: 'Express',
 	googleAnalytics: config.googleAnalytics,
 	tld: config.tld,
 	rif: config.contracts.rif,

@@ -4,20 +4,29 @@
 
 <p>Set the resolver for the domain.</p>
 
-<% btnId = 'resolver' %>
-<% btnText = 'Check domain resolver' %>
-<%- include templates/name %>
+<form onsubmit="return handleGetRecord()">
+    <% btnId = 'resolver' %>
+    <% btnText = 'Check domain resolver' %>
+    <%- include templates/name %>
+</form>
 
 <br>
 
 <% include templates/no-metamask.ejs %>
 
+<div id="no-owner" class="response hide-on-name-keyup" style="display: none;">
+    This entry has no owner.<br><br>
+    <a class="btn btn-default" href="/status">Check the domain status</a>
+</div>
+
 <br>
 
 <div id="resolver-response" class="response hide-on-name-keyup" style="display: none;">
-    <% addrId = 'set-resolver' %>
-    <% addrText = 'Set resolver' %>  
-    <% include templates/address.ejs %>
+    <form onsubmit="return handleSetResolver()">
+        <% addrId = 'set-resolver' %>
+        <% addrText = 'Set resolver' %>
+        <% include templates/address.ejs %>
+    </form>
 
     <br><br>
 
@@ -26,6 +35,6 @@
 
 <hr>
 
-<p>Learn more about resolution of domains in the <a href="https://docs.rns.rsk.co/architecture/registry">documentation page</a>.</p>
+<p>Learn more about resolution of domains in the <a href="https://docs.rns.rsk.co/Architecture/Registry#change-the-resolver">documentation page</a>.</p>
 
 <script src="/scripts/set-resolver.js"></script>

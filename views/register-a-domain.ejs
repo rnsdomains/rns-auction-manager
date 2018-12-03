@@ -4,9 +4,11 @@
 
 <p>Check the domain status and follow the steps to bid on an auciton for a domain.</p>
 
-<% btnId = 'status' %>
-<% btnText = 'Get auction status' %>
-<%- include templates/name %>
+<form onsubmit="return handleGetStatus()">
+    <% btnId = 'status' %>
+    <% btnText = 'Get auction status' %>
+    <%- include templates/name %>
+</form>
 
 <div class="row hide-on-name-keyup" id="result" style="display: none;">
     <div class="col-md-12">
@@ -32,10 +34,8 @@
     <div class="register-content">
         <section id="start-auction" class="step">
             <p>The domain is open to auction, to start the auction press the 'Start auction' button and confirm the transaction in MetaMask.</p>
-    
             <button id="start-auction-button" class="btn btn-default action">Start Auction</button>
             <i id="loading-start-auction" class="fas fa-spinner loading" style="display:none;"></i>
-
             <div class="alert alert-success alert-dismissible" style="display: none;">
                 <b>Successful transaction!</b>
                 <p>Check the status in the explorer: <a target="_blank" href="" class="explorer-link"></a></p>
@@ -47,27 +47,27 @@
         <section id="bid" class="step">
             <p>The auction for the name has started at <span class="auction-date"></span> and its open to anyone to bid on until <span class="auction-end-date"></span>.</p>
             <p>Select the amount of RIF Tokens you want to bid, and a salt (random number, use the random button to get one), keep in mind that you will need the number later in the registration process.</p>
-
-            <div class="form-group">
-                <label for="tokens">Tokens</label>
-                <div class="input-group">
-                    <input type="number" name="tokens" id="bid-tokens" class="form-control" min=1>
-                    <div class="input-group-addon">RIF</div>
-                </div>
-            </div>
-    
-            <div class="form-group">
-                <label for="salt">Salt</label>
-                <div class="input-group">
+            <form onsubmit="return handlebid()">
+                <div class="form-group">
+                    <label for="tokens">Tokens</label>
                     <div class="input-group">
-                        <input type="text" name="salt" id="bid-salt" class="form-control" min=0>
+                        <input type="number" name="tokens" id="bid-tokens" class="form-control" min=1>
+                        <div class="input-group-addon">RIF</div>
                     </div>
-                    <button type="button" class="btn btn-default" onclick="$('#bid-salt').val(random())">random</button>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="salt">Salt</label>
+                    <div class="input-group">
+                        <div class="input-group">
+                            <input type="text" name="salt" id="bid-salt" class="form-control" min=0>
+                        </div>
+                        <button type="button" class="btn btn-default" onclick="$('#bid-salt').val(random())">random</button>
+                    </div>
+                </div>
 
-            <button id="make-bid" type="submit" class="btn btn-default action">Bid</button>
-            <i id="loading-make-bid" class="fas fa-spinner loading" style="display: none;"></i>
+                <button id="make-bid" type="submit" class="btn btn-default action">Bid</button>
+                <i id="loading-make-bid" class="fas fa-spinner loading" style="display: none;"></i>
+            </form>
 
             <br><br>
 
@@ -91,21 +91,22 @@
         <section id="reveal" class="step">
             <p>The domain is on reveal stage of the auction, if you had made a bid, reveal it to participate and get the ownership of the name.</p>
 
-            <div class="form-group">
-                <label for="tokens">Tokens</label>
-                <div class="input-group">
-                    <input type="number" name="tokens" id="reveal-tokens" class="form-control" min=1>
-                    <div class="input-group-addon">RIF</div>
+            <form onsubmit="return handleReveal()">
+                <div class="form-group">
+                    <label for="tokens">Tokens</label>
+                    <div class="input-group">
+                        <input type="number" name="tokens" id="reveal-tokens" class="form-control" min=1>
+                        <div class="input-group-addon">RIF</div>
+                    </div>
                 </div>
-            </div>
-    
-            <div class="form-group">
-                <label for="salt">Salt</label>
-                <input type="number" name="salt" id="reveal-salt" class="form-control" min=0>
-            </div>
+                <div class="form-group">
+                    <label for="salt">Salt</label>
+                    <input type="number" name="salt" id="reveal-salt" class="form-control" min=0>
+                </div>
 
-            <button id="reveal-bid" type="submit" class="btn btn-default action">Reveal</button>
-            <i id="loading-reveal-bid" class="fas fa-spinner loading" style="display:none;"></i>
+                <button id="reveal-bid" type="submit" class="btn btn-default action">Reveal</button>
+                <i id="loading-reveal-bid" class="fas fa-spinner loading" style="display:none;"></i>
+            </form>
 
             <br><br>
 
@@ -118,7 +119,6 @@
 
         <section id="finalize" class="step">
             <p>The auction has finished! Click on finalize auction, if you are the winner, take ownership of your new name.</p>
-
             <button id="finalize-auction" type="submit" class="btn btn-default action">Finalize Auction</button>
             <i id="loading-finalize-auction" class="fas fa-spinner loading" style="display:none;"></i>
 
