@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
 	init()
 
-    $('#pay-rent').click(handlePayRent)
+	$('#pay-rent').click(handlePayRent)
+	$('#view-data').click(handleViewPayRent)
 
 	nameUrlParameter(handleGetStatus)
 })
@@ -99,4 +100,38 @@ function handlePayRent () {
 			l.attr('href', config.explorer.url + config.explorer.tx + res)
 		}
 	})
+}
+
+function transferAndCallData () {
+	let signature = web3.sha3('transferAndCall(address,uint,bytes)')
+	let name = $('#name').val()
+
+	let data = signature.slice(0, 10) +
+		'000000000000000000000000' + config.contracts.registrar.slice(2, 42) +
+		'0000000000000000000000000000000000000000000000000DE0B6B3A7640000' +
+		'0000000000000000000000000000000000000000000000000000000000000006' + // bytes offset
+		'0000000000000000000000000000000000000000000000000000000000000024' + // bytes length
+		'e1ac9915' + web3.sha3(name).slice(2, 66) + '00000000000000000000000000000000000000000000000000000000' // 36 bytes padded 32
+
+		let tx = {
+			to: config.contracts.rif,
+			value: '0x00',
+			data: data
+		}
+
+		return tx
+}
+
+function handleViewPayRent () {
+	let tx = transferAndCallData()
+
+	$('#tx-data-error').hide()
+
+	let copyButton = (content) => '<i id="copy" class="far fa-copy" onclick="copyData(\'' + content + '\')"></i> '
+
+	$('#tx-data-to').html('to: ' + copyButton(tx.to) + tx.to)
+	$('#tx-data-value').html('value: ' + copyButton(tx.value) + tx.value)
+	$('#tx-data-data').html('data: ' + copyButton(tx.data) + tx.data)
+
+	$('#tx-data').show()
 }
