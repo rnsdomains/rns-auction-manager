@@ -182,3 +182,17 @@ h1.page-title {
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
+
+.tx {
+    border: solid 1px;
+    background-color: #f4f4f4;
+    padding: 5px;
+}
+
+.ellipsis {
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:100%;
+    display:inline-block;
+}

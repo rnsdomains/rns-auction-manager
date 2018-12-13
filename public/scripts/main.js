@@ -288,3 +288,51 @@ function getResolver (resolverAddress) {
 function pushState (name) {
     history.pushState(name, document.title, '?name=' + name)
 }
+
+/**
+ * Display simple tx data in view-datat emplate
+ * @param {function} getTxData function to get transaction data from UI
+ */
+function handleViewData (getTxData) {
+	let tx = getTxData()
+
+	if (!$('#address').val()) $('#tx-data-error').show()
+	else $('#tx-data-error').hide()
+
+	let copyButton = (content) => '<i id="copy" class="far fa-copy" onclick="copyData(\'' + content + '\')"></i> '
+
+	$('#tx-data-to').html('to: ' + copyButton(tx.to) + tx.to)
+	$('#tx-data-value').html('value: ' + copyButton(tx.value) + tx.value)
+	$('#tx-data-data').html('data: ' + copyButton(tx.data) + tx.data)
+
+	$('#tx-data').show()
+}
+
+function copyData (content) {
+    const el = document.createElement('textarea')
+    el.value = content
+    document.body.appendChild(el)
+    el.select()
+    document.execCommand('copy')
+    document.body.removeChild(el)
+}
+
+
+/**
+ * Default function to get tx data from address field with address template
+ */
+function txDataFromAddress () {
+	let signature = web3.sha3('setOwner(bytes32,address)')
+	let hash = namehash($('#name').val() + '.' + config.tld)
+	let address = $('#address').val() || '0x0000000000000000000000000000000000000000'
+
+	let data = signature.slice(0, 10) + hash.slice(2, 64) + '000000000000000000000000' + address.slice(2, 40)
+
+	let tx = {
+		to: config.contracts.rns,
+		value: '0x00',
+		data: web3.toHex(data)
+	}
+
+	return tx
+}

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	$('#name').keyup(handleNameKeyup)
 	$('#address').keyup(handleAddressKeyup)
+	$('#view-data').click(() => handleViewData(txDataFromAddress))
 
 	hasMetaMask()
 

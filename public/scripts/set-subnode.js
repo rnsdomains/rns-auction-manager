@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	init()
 
     $('#set-subnode').click(handleSetSubnode)
+	$('#view-data').click(() => handleViewData(txDataSubnode))
 
 	hasMetaMask()
 
@@ -63,4 +64,24 @@ function handleSetSubnode () {
 	RNS.setSubnodeOwner(hash, labelHash, address, (err, res) => {
 		finalizeTx('#addr-action-loading', '#set-subnode', err, res)
 	})
+}
+
+function txDataSubnode () {
+	let signature = web3.sha3('setSubnodeOwner(bytes32,bytes32,address)')
+	var hash = namehash($('#name').val() + '.' + config.tld)
+	var labelHash = web3.sha3($('#label').val())
+	let address = $('#address').val() || '0x0000000000000000000000000000000000000000'
+
+	let data = signature.slice(0, 10) +
+		hash.slice(2, 64) +
+		labelHash.slice(2, 64) +
+		'000000000000000000000000' + address.slice(2, 40)
+
+	let tx = {
+		to: config.contracts.rns,
+		value: '0x00',
+		data: web3.toHex(data)
+	}
+
+	return tx
 }
