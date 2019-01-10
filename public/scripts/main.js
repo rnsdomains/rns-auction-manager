@@ -2,6 +2,8 @@ function init () {
     $('.tld-addon').html('.' + config.tld)
 
     $.ajaxSetup({ async: false })
+
+    $('#tx-readme-link').click(txReadme)
 }
 
 /**
@@ -287,4 +289,9 @@ function getResolver (resolverAddress) {
  */
 function pushState (name) {
     history.pushState(name, document.title, '?name=' + name)
+}
+
+function txReadme () {
+    if($('#tx-readme:visible').length === 0) $('#tx-readme').show()
+    else $('#tx-readme').hide()
 }
