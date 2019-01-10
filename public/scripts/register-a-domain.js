@@ -193,21 +193,23 @@ function displayStatus (response) {
 			var c = $('#bid')
 			var ca = $('.addeventatc', c)
 
-			let start = status[2] * 1000 - config.periods.auction * 1000
-			let end = status[2] * 1000 - config.periods.reveal * 1000
+			let expiration = status[2] * 1000
+			let start = expiration - config.periods.auction * 1000
+			let end = expiration - config.periods.reveal * 1000
 			var startdate = new Date(start)
 			var enddate = new Date(end)
+			var expirationdate  = new Date(expiration)
 			var link = location.protocol + '//' + location.host + location.pathname + '?name=' + name;
 
 			$('.auction-date', c).html(startdate.toLocaleString())
 			$('.auction-end-date', c).html(enddate.toLocaleString())
 
-			$('.start', ca).html(startdate.toLocaleString())
-			$('.end', ca).html(enddate.toLocaleString())
+			$('.start', ca).html(enddate.toLocaleString())
+			$('.end', ca).html(expirationdate.toLocaleString())
 			$('.timezone', ca).html(startdate.toString().slice(startdate.toString().split(' ', 5).join(' ').length + 1))
 
 			$('.title', ca).html('RNS Domain Auction for: ' + name + '.' + config.tld)
-			$('.description', ca).html('The RNS Domain Auction for "' + name + '." ' + config.tld + ' is open during this calendar event. Ensure you reveal your bid after this period using the link: ' + link)
+			$('.description', ca).html('The RNS Domain Auction for ' + name + '.' + config.tld + ' is on unseal period during this calendar event. Ensure you reveal your bid during this period here: ' + link)
 			$('.location', ca).html(link)
 
 			$(dsteps.get(1)).addClass('active')
