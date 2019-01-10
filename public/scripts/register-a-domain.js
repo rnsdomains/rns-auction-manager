@@ -193,7 +193,7 @@ function displayStatus (response) {
 			var c = $('#bid')
 			var ca = $('.addeventatc', c)
 
-			let start = status[2] * 1000 - config.periods.auction * 1000 - config.periods.reveal * 1000
+			let start = status[2] * 1000 - config.periods.auction * 1000
 			let end = status[2] * 1000 - config.periods.reveal * 1000
 			var startdate = new Date(start)
 			var enddate = new Date(end)
