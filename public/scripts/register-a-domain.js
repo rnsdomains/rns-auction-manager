@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 	init()
 
-    $('#name').keyup(handleLabelKeyup)
+	$('#name').keyup(handleLabelKeyup)
 
 	nameUrlParameter(handleGetStatus)
 
@@ -192,6 +192,11 @@ function displayStatus (response) {
 		case '1':
 			var c = $('#bid')
 			var ca = $('.addeventatc', c)
+
+			let RIF = getRIF()
+			RIF.balanceOf(web3.eth.accounts[0], (err, res) => {
+				if (web3.fromWei(res) < 1) $('#insuficient-rif').show()
+			})
 
 			let expiration = status[2] * 1000
 			let start = expiration - config.periods.auction * 1000
