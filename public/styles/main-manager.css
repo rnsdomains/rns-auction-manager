@@ -182,3 +182,9 @@ h1.page-title {
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
+
+.error-message {
+    display: none;
+    color: red;
+    font-weight: bold;
+}
