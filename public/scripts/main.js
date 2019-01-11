@@ -4,6 +4,10 @@ function init () {
     $.ajaxSetup({ async: false })
 
     initTxReadme()
+
+    web3.version.getNetwork((err, res) => {
+        if (res !== 30) $('#wrong-network').show()
+    })
 }
 
 /**
