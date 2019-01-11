@@ -3,7 +3,7 @@ function init () {
 
     $.ajaxSetup({ async: false })
 
-    $('#tx-readme-link').click(txReadme)
+    initTxReadme()
 }
 
 /**
@@ -291,7 +291,14 @@ function pushState (name) {
     history.pushState(name, document.title, '?name=' + name)
 }
 
-function txReadme () {
-    if($('#tx-readme:visible').length === 0) $('#tx-readme').show()
-    else $('#tx-readme').hide()
+/**
+ * Initialize Tx readme - requires #tx-readme element
+ */
+function initTxReadme () {
+    $('#tx-readme-link').click(() => {
+        if($('#tx-readme:visible').length === 0) $('#tx-readme').show()
+        else $('#tx-readme').hide()
+    })
+
+    web3.eth.getBlock('latest', (err,res) => $('#mgp').html((res.minimumGasPrice / 10**9)))
 }
