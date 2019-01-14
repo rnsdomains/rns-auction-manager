@@ -2,6 +2,14 @@ function init () {
     $('.tld-addon').html('.' + config.tld)
 
     $.ajaxSetup({ async: false })
+
+    let isValidNetworkId
+    web3.version.getNetwork((err, res) => {
+        isValidNetworkId = (res === 30)
+        if (!isValidNetworkId) $('#wrong-network').show()
+    })
+
+    initTxReadme(isValidNetworkId)
 }
 
 /**
@@ -287,4 +295,23 @@ function getResolver (resolverAddress) {
  */
 function pushState (name) {
     history.pushState(name, document.title, '?name=' + name)
+}
+
+/**
+ * Initialize Tx readme - requires #tx-readme element
+ * @param {bool} isValidNetworkId if is valid validate balances
+ */
+function initTxReadme (isValidNetworkId) {
+    $('#tx-readme-link').click(() => {
+        if($('#tx-readme:visible').length === 0) $('#tx-readme').show()
+        else $('#tx-readme').hide()
+    })
+
+    if (isValidNetworkId) {
+        web3.eth.getBlock('latest', (err,res) => $('#mgp').html((res.minimumGasPrice / 10**9)))
+
+        web3.eth.getBalance(web3.eth.accounts[0], (err, res) => {
+            if (web3.fromWei(res.toNumber()) === '0') $('#no-gas').show()
+        })
+    }
 }

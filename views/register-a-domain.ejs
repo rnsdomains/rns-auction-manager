@@ -24,6 +24,8 @@
 
     <h3>Domain registration stage</h3>
 
+    <% include templates/tx-readme %>
+
     <ul id="domain-steps" class="nav nav-tabs">
         <li><a href="#" title="Start auction">1. Start auction</a></li>
         <li><a href="#" title="New bid">2. New bid</a></li>
@@ -45,8 +47,15 @@
         </section>
 
         <section id="bid" class="step">
-            <p>The auction for the name has started at <span class="auction-date"></span> and its open to anyone to bid on until <span class="auction-end-date"></span>.</p>
-            <p>Select the amount of RIF Tokens you want to bid, and a salt (random number, use the random button to get one), keep in mind that you will need the number later in the registration process.</p>
+            <p>
+                The auction for the name has started at <span class="auction-date"></span><br />
+                The auction will be on auction until <span class="auction-end-date"></span>. It's an open auction so anyone may bid.<br />
+                Once the auction has finished you must reveal your bid. This is done after the mentioned period.
+            </p>
+            <p id="insuficient-rif" class="error-message">
+                Insuficient RIFs! Minimum to bid is 1 RIF.
+            </p>
+            <p>Select the amount of RIF Tokens you want to bid, and a salt. Keep in mind that you will need this values later in the registration process.</p>
             <form onsubmit="return handlebid()">
                 <div class="form-group">
                     <label for="tokens">Tokens</label>
@@ -63,6 +72,7 @@
                         </div>
                         <button type="button" class="btn btn-default" onclick="$('#bid-salt').val(random())">random</button>
                     </div>
+                    <small>Is a random number to seal the bid. Is used to unseal the bid on the next registration step.</small>
                 </div>
 
                 <button id="make-bid" type="submit" class="btn btn-default action">Bid</button>
@@ -101,7 +111,7 @@
                 </div>
                 <div class="form-group">
                     <label for="salt">Salt</label>
-                    <input type="number" name="salt" id="reveal-salt" class="form-control" min=0>
+                    <input type="text" name="salt" id="reveal-salt" class="form-control" min=0>
                 </div>
 
                 <button id="reveal-bid" type="submit" class="btn btn-default action">Reveal</button>
