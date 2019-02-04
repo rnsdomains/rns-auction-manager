@@ -196,3 +196,9 @@ h1.page-title {
     width:100%;
     display:inline-block;
 }
+
+.error-message {
+    display: none;
+    color: red;
+    font-weight: bold;
+}
