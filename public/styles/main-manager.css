@@ -129,7 +129,7 @@ h1.page-title {
 #bid .btn.btn-default.addeventatc {
 	background: #53c676!important;
 	color: #fff!important;
-    font-family: Roboto Condensed,sans-serif;	
+    font-family: Roboto Condensed,sans-serif;
     padding: 16px 12px 12px 43px;
     height: 50px;
     box-shadow: none;
@@ -187,4 +187,66 @@ h1.page-title {
     display: none;
     color: red;
     font-weight: bold;
+}
+
+/* modal */
+.modal-title {
+    color: white;
+}
+
+.modal-content {
+    background: rgb(41, 93, 118);
+    color: white;
+}
+
+
+.modal-link {
+    color: #53c676;
+    text-decoration: underline;
+}
+
+.modal-link:link {
+    color: #53c676;
+    text-decoration: underline;
+}
+
+.modal-link:visited {
+    color: #53c676;
+    text-decoration: underline;
+}
+
+.modal-link:hover {
+    color: #53c676;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.modal-link:active {
+    color: #53c676;
+    text-decoration: underline;
+}
+
+.modal-code {
+    padding: .2rem .4rem;
+    font-size: 90%;
+    color: #53c676;
+    background-color: #f8f9fa;
+    border-radius: .25rem;
+}
+
+.modal-body-container {
+    width: 100%;
+}
+
+.modal-copy-hash {
+    margin: .05em;
+    width: .9em;
+    height: .9em;
+    float: right;
+}
+
+.modal-copy-hash:hover {
+    margin: 0em;
+    width: 1em;
+    height: 1em;
 }

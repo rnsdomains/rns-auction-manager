@@ -4,6 +4,26 @@ document.addEventListener('DOMContentLoaded', function () {
     $('#name').keyup(handleNameKeyup)
 
     nameUrlParameter(handleResolve)
+
+    $('#modal-mycrypto').on('shown.bs.modal', () => {
+        let name = $('#name').val()
+        let hash = namehash(name + '.' + config.tld)
+
+        $('#modal-domain').html(name + '.' + config.tld)
+
+        $('.modal-hash').html(hash)
+        $('.modal-copy-hash').click(() => {
+            let e = document.createElement('textarea')
+            e.value = hash
+            let p = document.getElementById('modal-mycrypto')
+            p.appendChild(e)
+            e.select()
+            document.execCommand('copy')
+            p.removeChild(e)
+        })
+
+        $('#modal-domain-status').prop('href', '/domain-status?name=' + name)
+    })
 })
 
 /**
