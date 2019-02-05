@@ -12,6 +12,12 @@
 
 <%- include templates/server-error %>
 
+<br />
+
+<button type="button" class="btn" data-toggle="modal" data-target="#modal-mycrypto">
+    <i class="fas fa-share-square"></i> Check status on MyCrypto
+</button>
+
 <div class="row hide-on-name-keyup" id="result" style="display: none;">
     <div class="col-md-12">
         <h2>State: <span id="domain-state"></span></h2>
@@ -23,5 +29,64 @@
 <hr>
 
 <p>Learn more about the auction states in the <a href="https://docs.rns.rsk.co/Architecture/Registrar#states">documentation page</a>.</p>
+
+<div class="modal fade" id="modal-mycrypto" tabindex="-1" role="dialog" aria-labelledby="MyCrypto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Check status <small id="modal-domain"></small> on MyCrypto</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.<br /></li>
+                    <li>Select <b>RNS Registrar</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>On <i>Read / Write Contract</i> select <b>state</b></li>
+                    <li>
+                        <div class="modal-body-container">
+                            Copy and paste this hash on <i>node bytes32</i>
+                            <i class="far fa-copy modal-copy-hash"></i><br />
+                        </div>
+                        <code class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                    </li>
+                    <li>Read!</li>
+                </ol>
+                <p>Identify the state of the domain:</p>
+                <table>
+                    <thead>
+                        <tr>
+                        <th>Number</th>
+                        <th>State</th>
+                        <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td><strong>0</strong></td>
+                        <td>Open</td>
+                        <td>Domain is available and the auction hasn’t started</td>
+                        </tr>
+                        <tr>
+                        <td><strong>1</strong></td>
+                        <td>Auction</td>
+                        <td>Domain is available and the auction has been started</td>
+                        </tr>
+                        <tr>
+                        <td><strong>2</strong></td>
+                        <td>Owned</td>
+                        <td>Domain is taken and currently owned by someone</td>
+                        </tr>
+                        <tr>
+                        <td><strong>4</strong></td>
+                        <td>Reveal</td>
+                        <td>Domain is currently in the ‘reveal’ stage of the auction</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/scripts/domain-status.js"></script>
