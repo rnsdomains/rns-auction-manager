@@ -7,6 +7,27 @@ document.addEventListener('DOMContentLoaded', function () {
 	hasMetaMask()
 
 	nameUrlParameter(handleGetRecord)
+
+	$('#modal-mycrypto-owner').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		let hash = web3.sha3(name)
+
+		$('#modal-mycrypto-owner .modal-domain').html(name + '.' + config.tld)
+		$('#modal-mycrypto-owner .modal-hash').html(hash)
+		handleCopy(hash, '#modal-mycrypto-owner .modal-copy-hash', 'modal-mycrypto-owner')
+	})
+
+	$('#modal-mycrypto-setowner').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		let hash = web3.sha3(name)
+		let address = $('#address').val()
+
+		$('#modal-mycrypto-setowner .modal-domain').html(name + '.' + config.tld)
+		$('#modal-mycrypto-setowner .modal-hash').html(hash)
+		handleCopy(hash, '#modal-mycrypto-setowner .modal-copy-hash', 'modal-mycrypto-setowner')
+		$('#modal-addr').html(address)
+		handleCopy(address, '#modal-mycrypto-setowner #modal-copy-addr', 'modal-mycrypto-setowner')
+	})
 })
 
 /**
