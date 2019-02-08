@@ -8,6 +8,22 @@ document.addEventListener('DOMContentLoaded', function () {
 	nameUrlParameter()
 
 	handleValidations()
+
+	$('#modal-mycrypto-subnode').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		let hash = namehash(name)
+		let label = $('#label').val()
+		let labelHash = web3.sha3(label)
+		let address = $('#address').val()
+
+		$('#modal-domain').html(label + '.' + name + '.' + config.tld)
+		$('#modal-node').html(hash)
+		handleCopy(hash, '#modal-copy-node', 'modal-mycrypto-subnode')
+		$('#modal-label').html(labelHash)
+		handleCopy(labelHash, '#modal-copy-label', 'modal-mycrypto-subnode')
+		$('#modal-addr').html(address)
+		handleCopy(address, '#modal-copy-addr', 'modal-mycrypto-subnode')
+	})
 })
 
 function handleValidations () {
@@ -49,7 +65,7 @@ function handleValidations () {
 }
 
 function handleSetSubnode () {
-	var RNS = getRNS()
+	let RNS = getRNS()
 
 	let node =  $('#name').val() + '.' + config.tld
 	let label = $('#label').val()
@@ -57,8 +73,8 @@ function handleSetSubnode () {
 
 	executeTx('#addr-action-loading', '#set-subnode')
 
-	var hash = namehash(node)
-	var labelHash = web3.sha3(label)
+	let hash = namehash(node)
+	let labelHash = web3.sha3(label)
 
 	RNS.setSubnodeOwner(hash, labelHash, address, (err, res) => {
 		finalizeTx('#addr-action-loading', '#set-subnode', err, res)
