@@ -9,6 +9,69 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	$('#start-auction-button').click(handleStartAuction)
 	$('#finalize-auction').click(handleFinalize)
+
+	$('#modal-mycrypto-open').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		let hash = web3.sha3(name)
+
+		$('#modal-mycrypto-open #modal-domain').html(name + '.' + config.tld)
+		$('#modal-mycrypto-open .modal-hash').html(hash)
+
+		handleCopy(hash, '#modal-mycrypto-open .modal-copy-hash', 'modal-mycrypto-open')
+	})
+
+	$('#modal-mycrypto-auction').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		let hash = web3.sha3(name)
+		let address = web3.eth.defaultAccount
+		let tokens = $('#bid-tokens').val() * (10 ** 18)
+		let salt = $('#bid-salt').val()
+
+		$('#modal-mycrypto-auction #modal-domain').html(name + '.' + config.tld)
+
+		let to = config.contracts.registrar
+		$('#modal-mycrypto-auction #modal-to').html(to)
+		handleCopy(to, '#modal-mycrypto-auction #copy-to', 'modal-mycrypto-auction')
+
+		$('#modal-mycrypto-auction #modal-value').html(tokens)
+		handleCopy(tokens, '#modal-mycrypto-auction #copy-value', 'modal-mycrypto-auction')
+
+		let registrar = getRegistrar()
+
+		registrar.shaBid(hash, address, tokens, salt, (error, result) => {
+			if(!error) {
+				$('#modal-mycrypto-auction #modal-data').html('0x1413151f<br />' + result.slice(2, 66) + '<br />00000000000000000000000000000000000000000000000000000000')
+				handleCopy('0x1413151f' + result.slice(2, 66) + '00000000000000000000000000000000000000000000000000000000', '#modal-mycrypto-auction #copy-data', 'modal-mycrypto-auction')
+			}
+		})
+	})
+
+	$('#modal-mycrypto-reveal').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		let hash = web3.sha3(name)
+		let tokens = $('#reveal-tokens').val() * (10 ** 18)
+		let salt = $('#reveal-salt').val()
+
+		$('#modal-mycrypto-reveal #modal-domain').html(name + '.' + config.tld)
+
+		$('#modal-mycrypto-reveal #modal-hash').html(hash)
+		handleCopy(hash, '#modal-mycrypto-reveal #copy-hash', 'modal-mycrypto-reveal')
+
+		$('#modal-mycrypto-reveal #modal-value').html(tokens)
+		handleCopy(tokens, '#modal-mycrypto-reveal #copy-value', 'modal-mycrypto-reveal')
+
+		$('#modal-mycrypto-reveal #modal-salt').html(salt)
+		handleCopy(salt, '#modal-mycrypto-reveal #copy-salt', 'modal-mycrypto-reveal')
+	})
+
+	$('#modal-mycrypto-owned').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		$('#modal-mycrypto-owned #modal-domain').html(name + '.' + config.tld)
+
+		let hash = web3.sha3(name)
+		$('#modal-mycrypto-owned .modal-hash').html(hash)
+		handleCopy(hash, '#modal-mycrypto-owned .modal-copy-hash', 'modal-mycrypto-owned')
+	})
 })
 
 /**
@@ -270,4 +333,22 @@ function downloadBid (e) {
 function random() {
 	var randomBytes = window.crypto.getRandomValues(new Uint8Array(32))
 	return '0x' + Array.from(randomBytes).map((byte) => byte.toString(16)).join('')
+}
+
+/**
+ * copy value when a button is clicked
+ * @param {string} value text to be coppied when clicked
+ * @param {string} id of the button to be clicked
+ * @param {string} container of an element containing the button
+ */
+function handleCopy (value, id, container) {
+	$(id).click(() => {
+		let e = document.createElement('textarea')
+		e.value = value
+		let p = document.getElementById(container)
+		p.appendChild(e)
+		e.select()
+		document.execCommand('copy')
+		p.removeChild(e)
+	})
 }
