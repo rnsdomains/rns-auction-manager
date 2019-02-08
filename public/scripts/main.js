@@ -315,3 +315,21 @@ function initTxReadme (isValidNetworkId) {
         })
     }
 }
+
+/**
+ * copy value when a button is clicked
+ * @param {string} value text to be coppied when clicked
+ * @param {string} id of the button to be clicked
+ * @param {string} container of an element containing the button
+ */
+function handleCopy (value, id, container) {
+	$(id).click(() => {
+		let e = document.createElement('textarea')
+		e.value = value
+		let p = document.getElementById(container)
+		p.appendChild(e)
+		e.select()
+		document.execCommand('copy')
+		p.removeChild(e)
+	})
+}

@@ -6,22 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	nameUrlParameter(handleGetStatus)
 
 	$('#modal-mycrypto').on('shown.bs.modal', () => {
-        let name = $('#name').val()
-        let hash = web3.sha3(name)
+		let name = $('#name').val()
+		let hash = web3.sha3(name)
 
-        $('#modal-domain').html(name + '.' + config.tld)
-
-        $('.modal-hash').html(hash)
-        $('.modal-copy-hash').click(() => {
-            let e = document.createElement('textarea')
-            e.value = hash
-            let p = document.getElementById('modal-mycrypto')
-            p.appendChild(e)
-            e.select()
-            document.execCommand('copy')
-            p.removeChild(e)
-        })
-    })
+		$('#modal-domain').html(name + '.' + config.tld)
+		$('.modal-hash').html(hash)
+		handleCopy(hash, '.modal-copy-hash', 'modal-mycrypto')
+	})
 })
 
 /**
