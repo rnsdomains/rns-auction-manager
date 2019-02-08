@@ -1,9 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
 	init()
 
-    $('#pay-rent').click(handlePayRent)
+  $('#pay-rent').click(handlePayRent)
 
 	nameUrlParameter(handleGetStatus)
+
+	$('#modal-mycrypto-ownership').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		let hash = web3.sha3(name)
+
+		$('#modal-mycrypto-ownership .modal-domain').html(name + '.' + config.tld)
+		$('#modal-mycrypto-ownership .modal-hash').html(hash)
+		handleCopy(hash, '#modal-mycrypto-ownership .modal-copy-hash', 'modal-mycrypto-ownership')
+	})
+
 })
 
 /**
