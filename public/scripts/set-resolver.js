@@ -7,6 +7,27 @@ document.addEventListener('DOMContentLoaded', function () {
 	hasMetaMask()
 
 	nameUrlParameter(handleGetRecord)
+
+	$('#modal-mycrypto-resolver').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		let hash = web3.sha3(name)
+
+		$('#modal-mycrypto-resolver .modal-domain').html(name + '.' + config.tld)
+		$('#modal-mycrypto-resolver .modal-hash').html(hash)
+		handleCopy(hash, '#modal-mycrypto-resolver .modal-copy-hash', 'modal-mycrypto-resolver')
+	})
+
+	$('#modal-mycrypto-setresolver').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		let hash = web3.sha3(name)
+		let address = $('#address').val()
+
+		$('#modal-mycrypto-setresolver .modal-domain').html(name + '.' + config.tld)
+		$('#modal-mycrypto-setresolver .modal-hash').html(hash)
+		handleCopy(hash, '#modal-mycrypto-setresolver .modal-copy-hash', 'modal-mycrypto-setresolver')
+		$('#modal-addr').html(address)
+		handleCopy(address, '#modal-mycrypto-setresolver #modal-copy-addr', 'modal-mycrypto-setresolver')
+	})
 })
 
 /**
