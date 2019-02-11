@@ -194,6 +194,7 @@
             <div class="modal-body">
                 <ol>
                     <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.</li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
                     <li>Select <b>RNS Registrar</b> contract on <i>Existing Contract</i> selector.</li>
                     <li>Access!</li>
                     <li>On <i>Read / Write Contract</i> select <b>startAuction</b>.</li>
@@ -223,7 +224,46 @@
             <div class="modal-body">
                 <ol>
                     <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.</li>
-                    <li>Select <b>RIF</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+                    <li>
+                        First we are going to seal the bid:
+                        <ol>
+                            <li>Select <b>RNS Registrar</b> contract on <i>Existing Contract</i> selector.</li>
+                            <li>Access!</li>
+                            <li>On <i>Read / Write Contract</i> select <b>shaBid</b>.</li>
+                            <li>
+                                Copy and paste:
+                                <ul>
+                                    <li>
+                                        <div class="modal-body-container">
+                                            on <i>_hash bytes32</i>
+                                            <i id="copy-hash" class="far fa-copy modal-copy-hash"></i><br />
+                                        </div>
+                                        <code id="modal-hash" class="modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                                    </li>
+                                    <li><i>_owner address</i>: the domain's owner. You may want to use your wallet address.</li>
+                                    <li>
+                                        <div class="modal-body-container">
+                                            on <i>_value byte256</i>
+                                            <i id="copy-value" class="far fa-copy modal-copy-hash"></i><br />
+                                        </div>
+                                        <code id="modal-value" class="modal-code">0</code>
+                                    </li>
+                                    <li>
+                                        <div class="modal-body-container">
+                                            on <i>_salt bytes32</i>
+                                            <i id="copy-salt" class="far fa-copy modal-copy-hash"></i><br />
+                                        </div>
+                                        <code id="modal-salt" class="modal-code">0x00</code>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>Read!</li>
+                        </ol>
+                    </li>
+                    <b>Remember you must save all this data to unseal the bid on reveal phase!</b>
+                    <li>Copy the response here: <input type="text" class="form-control input-sm" id="mycrypto-shabid" /></li>
+                    <li>On MyCrypto, select <b>RIF</b> contract on <i>Existing Contract</i> selector.</li>
                     <li>Access!</li>
                     <li>On <i>Read / Write Contract</i> select <b>transferAndCall</b>.</li>
                     <li>
@@ -238,7 +278,7 @@
                             </li>
                             <li>
                                 <div class="modal-body-container">
-                                    on <i>_value uint256</i>
+                                    on <i>_value uint256</i> (or a higher value)
                                     <i id="copy-value" class="far fa-copy modal-copy-hash"></i><br />
                                 </div>
                                 <code id="modal-value" class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
@@ -271,6 +311,7 @@
             <div class="modal-body">
                 <ol>
                     <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.</li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
                     <li>Select <b>RNS Registrar</b> contract on <i>Existing Contract</i> selector.</li>
                     <li>Access!</li>
                     <li>On <i>Read / Write Contract</i> select <b>unsealBid</b>.</li>
@@ -319,6 +360,7 @@
             <div class="modal-body">
                 <ol>
                     <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.</li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
                     <li>Select <b>RNS Registrar</b> contract on <i>Existing Contract</i> selector.</li>
                     <li>Access!</li>
                     <li>On <i>Read / Write Contract</i> select <b>finalizeAuction</b>.</li>

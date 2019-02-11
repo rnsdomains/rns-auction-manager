@@ -36,13 +36,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		$('#modal-mycrypto-auction #modal-value').html(tokens)
 		handleCopy(tokens, '#modal-mycrypto-auction #copy-value', 'modal-mycrypto-auction')
 
-		let registrar = getRegistrar()
+		$('#modal-mycrypto-auction #modal-hash').html(hash)
+		handleCopy(hash, '#modal-mycrypto-auction #copy-hash', 'modal-mycrypto-auction')
 
-		registrar.shaBid(hash, address, tokens, salt, (error, result) => {
-			if(!error) {
-				$('#modal-mycrypto-auction #modal-data').html('0x1413151f<br />' + result.slice(2, 66) + '<br />00000000000000000000000000000000000000000000000000000000')
-				handleCopy('0x1413151f' + result.slice(2, 66) + '00000000000000000000000000000000000000000000000000000000', '#modal-mycrypto-auction #copy-data', 'modal-mycrypto-auction')
-			}
+		$('#modal-mycrypto-auction #modal-value').html(tokens)
+		handleCopy(tokens, '#modal-mycrypto-auction #copy-value', 'modal-mycrypto-auction')
+
+		$('#modal-mycrypto-auction #modal-salt').html(salt)
+		handleCopy(salt, '#modal-mycrypto-auction #copy-salt', 'modal-mycrypto-auction')
+
+		$('#mycrypto-shabid').keyup((event, args) => {
+			let shabid = event.target.value.slice(2, 66)
+			$('#modal-mycrypto-auction #modal-data').html('0x1413151f<br />' + shabid + '<br />00000000000000000000000000000000000000000000000000000000')
+			handleCopy('0x1413151f' + shabid + '00000000000000000000000000000000000000000000000000000000', '#modal-mycrypto-auction #copy-data', 'modal-mycrypto-auction')
 		})
 	})
 
@@ -257,7 +263,7 @@ function displayStatus (response) {
 			var ca = $('.addeventatc', c)
 
 			let RIF = getRIF()
-			RIF.balanceOf(web3.eth.accounts[0], (err, res) => {
+			RIF.balanceOf(web3.eth.accounts[0] || '0x00', (err, res) => {
 				if (web3.fromWei(res) < 1) $('#insuficient-rif').show()
 			})
 

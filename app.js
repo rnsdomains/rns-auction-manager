@@ -96,7 +96,6 @@ app.get('/resolvename', function(req, res) {
 
     let result = resolver.addr(hash)
 
-
     return res.status(200).send(JSON.stringify(result))
 })
 
