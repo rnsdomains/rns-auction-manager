@@ -67,7 +67,7 @@ function handleSetAddr () {
 
 	let name = $('#name').val()
 
-	executeTx('#address', '#set-owner')
+	executeTx('#address', '#set-addr')
 
 	let hash = namehash(name + '.' + config.tld)
 
@@ -80,8 +80,9 @@ function handleSetAddr () {
 			let address = $('#address').val()
 
 			resolver.setAddr(hash, address, (err2, res2) => {
-				finalizeTx('#addr-action-loading', '#set-owner', err2, res2)
+				finalizeTx('#addr-action-loading', '#set-addr', err2, res2)
 				if (!err2) $('#check-resolution').show()
+				else $('#set-addr').prop('disabled', false)
 			})
 		}
 	})

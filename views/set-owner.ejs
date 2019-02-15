@@ -17,6 +17,7 @@
 </button>
 
 <br />
+<br />
 
 <% include templates/no-metamask.ejs %>
 
@@ -28,7 +29,7 @@
 <% include templates/tx-readme %>
 
 <div id="owner-response" class="response hide-on-name-keyup" style="display: none;">
-    <form onsubmit="return handleSetAddr()">
+    <form onsubmit="return handleSetOwner()">
         <% addrId = 'set-owner' %>
         <% addrText = 'Set owner' %>
         <% include templates/address.ejs %>
@@ -92,7 +93,7 @@
                     <li>Access!</li>
                     <li>On <i>Read / Write Contract</i> select <b>setAddr</b></li>
                     <li>
-                        Copy and paste:
+                        Copy this values and paste them in MyCrypto fields:
                         <ul>
                             <li>
                                 <div class="modal-body-container">

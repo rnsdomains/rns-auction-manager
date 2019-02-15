@@ -24,8 +24,6 @@
 
 <div class="domain-registration-stage-panel hide-on-name-keyup" style="display:none;">
 
-    <h3>Domain registration stage</h3>
-
     <% include templates/tx-readme %>
 
     <ul id="domain-steps" class="nav nav-tabs">
@@ -232,7 +230,7 @@
                             <li>Access!</li>
                             <li>On <i>Read / Write Contract</i> select <b>shaBid</b>.</li>
                             <li>
-                                Copy and paste:
+                                Copy this values and paste them in MyCrypto fields:
                                 <ul>
                                     <li>
                                         <div class="modal-body-container">
@@ -262,12 +260,16 @@
                         </ol>
                     </li>
                     <b>Remember you must save all this data to unseal the bid on reveal phase!</b>
-                    <li>Copy the response here: <input type="text" class="form-control input-sm" id="mycrypto-shabid" /></li>
+                    <li>
+                        Copy the response here:
+                        <input type="text" class="form-control input-sm" id="mycrypto-shabid" />
+                        <i id="invalid-shabid-mycrypto">The hash is invalid. Copy and paste it again please.</i>
+                    </li>
                     <li>On MyCrypto, select <b>RIF</b> contract on <i>Existing Contract</i> selector.</li>
                     <li>Access!</li>
                     <li>On <i>Read / Write Contract</i> select <b>transferAndCall</b>.</li>
                     <li>
-                        Copy and paste
+                        Copy this values and paste them in MyCrypto fields:
                         <ul>
                             <li>
                                 <div class="modal-body-container">
@@ -316,7 +318,7 @@
                     <li>Access!</li>
                     <li>On <i>Read / Write Contract</i> select <b>unsealBid</b>.</li>
                     <li>
-                        Copy and paste
+                        Copy this values and paste them in MyCrypto fields:
                         <ul>
                             <li>
                                 <div class="modal-body-container">

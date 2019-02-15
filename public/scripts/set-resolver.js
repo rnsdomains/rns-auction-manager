@@ -71,7 +71,7 @@ function handleSetResolver () {
     $('.disable-on-addr-invalid').attr('disabled', true)
 
 	RNS.setResolver(hash, address, (err, res) => finalizeTx(
-		'#addr-action-loading', '#set-owner', err, res))
+		'#addr-action-loading', '#set-resolver', err, res))
 
 	return false
 }

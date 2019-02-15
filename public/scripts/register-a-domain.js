@@ -46,9 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		handleCopy(salt, '#modal-mycrypto-auction #copy-salt', 'modal-mycrypto-auction')
 
 		$('#mycrypto-shabid').keyup((event, args) => {
-			let shabid = event.target.value.slice(2, 66)
-			$('#modal-mycrypto-auction #modal-data').html('0x1413151f<br />' + shabid + '<br />00000000000000000000000000000000000000000000000000000000')
-			handleCopy('0x1413151f' + shabid + '00000000000000000000000000000000000000000000000000000000', '#modal-mycrypto-auction #copy-data', 'modal-mycrypto-auction')
+			let regexp = new RegExp('^0x[a-f0-9]{64}$')
+			let shabid = event.target.value.trim()
+			let isvalidshabid = regexp.test(shabid)
+			$('#invalid-shabid-mycrypto').prop('hidden', isvalidshabid)
+			let shabidvalue = shabid.slice(2, 66)
+			$('#modal-mycrypto-auction #modal-data').html('0x1413151f<br />' + shabidvalue + '<br />00000000000000000000000000000000000000000000000000000000')
+			handleCopy('0x1413151f' + shabidvalue + '00000000000000000000000000000000000000000000000000000000', '#modal-mycrypto-auction #copy-data', 'modal-mycrypto-auction')
 		})
 	})
 
@@ -120,6 +124,7 @@ function handleStartAuction () {
 		if (err) {
 			$('#error-detail').html(err)
 			$('#error-response').show()
+			$('#start-auction-button').prop('disabled', false)
 		} else {
 			let c = $('#start-auction .alert-success')
 			let l = $('a.explorer-link', c)
@@ -155,6 +160,7 @@ function handleBid () {
 				if (err) {
 					$('#error-response').show()
 					$('#error-detail').html(err)
+					$('#make-bid').prop('disabled', false)
 				} else {
 					let c = $('#bid .alert-success')
 					let l = $('a.explorer-link', c)
@@ -195,6 +201,7 @@ function handleReveal () {
 		if(err) {
 			$('#error-response').show()
 			$('#error-detail').html(err)
+			$('#reveal-bid').prop('disabled', false)
 		} else {
 			let c = $('#reveal .alert-success')
 			let l = $('a.explorer-link', c)
@@ -225,6 +232,7 @@ function handleFinalize () {
 			$('#finalize-auction').prop('disabled', false)
 			$('#error-response').show()
 			$('#error-detail').html(err)
+			$('#finalize-auction').prop('disabled', false)
 		} else {
 			let c = $('#finalize .alert-success')
 			let l = $('a.explorer-link', c)

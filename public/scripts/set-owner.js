@@ -64,14 +64,14 @@ function handleSetOwner () {
 	let address = $('#address').val()
 	let name = $('#name').val()
 
-	executeTx('#addr-action-loading', '#set-addr')
+	executeTx('#addr-action-loading', '#set-owner')
 
 	let hash = namehash(name + '.' + config.tld)
 
     $('.disable-on-addr-invalid').attr('disabled', true)
 
 	RNS.setOwner(hash, address, (err, res) => finalizeTx(
-		'#addr-action-loading', '#set-addr', err, res))
+		'#addr-action-loading', '#set-owner', err, res))
 
 	return false
 }
