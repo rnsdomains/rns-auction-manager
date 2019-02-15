@@ -25,9 +25,9 @@ Set values in `config.json` file.
     },
     "googleAnalytics": "",
     "contracts": {
-        "rif": "0x00",
-        "registrar": "0x00",
-        "rns": "0x00"
+        "rif": "0x2acc95758f8b5f583470ba265eb685a8f45fc9d5",
+        "registrar": "0x5269f5bc51cdd8aa62755c97229b7eeddd8e69a6",
+        "rns": "0xcb868aeabd31e2b66f74e9a55cf064abb31a4ad5"
     },
     "periods": {
         "auction": 432000,
