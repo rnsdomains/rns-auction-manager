@@ -82,6 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		$('#modal-mycrypto-owned .modal-hash').html(hash)
 		handleCopy(hash, '#modal-mycrypto-owned .modal-copy-hash', 'modal-mycrypto-owned')
 	})
+
+	$('#bid-tokens').keyup(() => {
+		let error = $('#bid-tokens').val() < 1 ? 'You must bid at least 1 RIF' : null
+		$('#bid-tokens-error').html(error)
+	})
 })
 
 /**

@@ -32,23 +32,29 @@ function handleValidations () {
 	let addressValid = false
 
 	$('#name').keyup(() => {
-		nameValid = isValidName($('#name').val())
-		if (!nameValid) $('#name-group').addClass('on-error')
+		error = isValidName($('#name').val())
+		nameValid = !error
+		if (error) $('#name-group').addClass('on-error')
 		else $('#name-group').removeClass('on-error')
+		$('#name-error').html(error)
 		$('#subdomain-suffix').html('.' + $('#name').val() + '.' + config.tld)
 		displayValidations()
 	})
 
 	$('#label').keyup(() => {
-		labelValid = isValidLabel($('#label').val())
-        if (labelValid)  $('#label-group').removeClass('on-error')
-        else $('#label-group').addClass('on-error')
+		error = isValidLabel($('#label').val())
+		labelValid = !error
+		if (!error) $('#label-group').removeClass('on-error')
+		else $('#label-group').addClass('on-error')
+		$('#subdomain-error').html(error)
 		displayValidations()
-    })
+	})
 
 	$('#address').keyup(() => {
-		let address = isValidAddress($('#address').val())
-		addressValid = address !== ''
+		let error = isValidAddress($('#address').val())
+		addressValid = !error
+
+		$('#address-error').html(error)
 
 		if (addressValid) $('#address-group').removeClass('on-error')
 		else $('#address-group').addClass('on-error')

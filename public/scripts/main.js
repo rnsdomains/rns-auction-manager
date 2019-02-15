@@ -107,27 +107,29 @@ function toChecksumAddress (address, chainId = null) {
 }
 
 /**
- * returns if the name is valid
+ * returns null if the name is valid, or an error message
  * @param {string} n name
  */
 function isValidName (n) {
-    if (n === "") return false
+    if (n === "") return 'Please complete the domain name'
+    if (n[0] === '.') return 'Name can\'t start with "."'
+    if (n[n.length - 1] === '.') return 'Name can\'t finish with "."'
     let split = n.split('.')
     split.push('')
 
     let i = 0
     while (split[i].length > 0) i++
-    return i === split.length - 1
+    return i === split.length - 1 ? null : 'The name must contain labels between "."'
 }
 
 /**
- * returns if label is valid
+ * returns null if label is validm or an error message
  * @param {string} l label
  */
 function isValidLabel (l) {
     if (l === "") return false
     let split = l.split('.')
-    return split.length === 1
+    return split.length === 1 ? null : 'You should enter a single label, without "."'
 }
 
 /**
@@ -139,16 +141,16 @@ function isAddress(address) {
 }
 
 /**
- * Check wether address is upper or lower case, or has correct checksum
+ * Returns null if address is upper or lower case, or has correct checksum; or an error message
  * @param {string} address address to check with checksum
  */
 function isValidAddress (address) {
-    var checksummed = toChecksumAddress(address, config.chainId)
-    return (isAddress(address) && (
-        address === address.toUpperCase().replace('X','x') ||
-        address == address.toLowerCase() ||
-        address == checksummed
-    )) ? checksummed : ''
+    var checksummed = toChecksumAddress(address, config.chainid)
+    if (!isAddress(address)) return 'Invalid address'
+    if (address !== address.toUpperCase().replace('X','x') &&
+        address !== address.toLowerCase() &&
+        address !== checksummed) return 'If you copied the address from MetaMask convert it to lowercase.'
+    return null
 }
 
 /**
@@ -170,9 +172,9 @@ function handleLabelKeyup () {
     if (shouldNotCleanResult()) return
     $('.hide-on-name-keyup').hide()
 
-    let valid = isValidLabel($('#name').val())
+    let error = isValidLabel($('#name').val())
 
-    if (valid) {
+    if (!error) {
         $('#name-group').removeClass('on-error')
         $('.disable-on-name-invalid').attr('disabled', false)
     } else {
@@ -180,7 +182,9 @@ function handleLabelKeyup () {
         $('.disable-on-name-invalid').attr('disabled', true)
     }
 
-    return valid
+    $('#name-error').html(error)
+
+    return !error
 }
 
 /**
@@ -190,9 +194,9 @@ function handleNameKeyup () {
     if (shouldNotCleanResult()) return
     $('.hide-on-name-keyup').hide()
 
-    let valid = isValidName($('#name').val())
+    let error = isValidName($('#name').val())
 
-    if (valid) {
+    if (!error) {
         $('#name-group').removeClass('on-error')
         $('.disable-on-name-invalid').attr('disabled', false)
     } else {
@@ -200,7 +204,9 @@ function handleNameKeyup () {
         $('.disable-on-name-invalid').attr('disabled', true)
     }
 
-    return valid
+    $('#name-error').html(error)
+
+    return !error
 }
 
 /**
@@ -208,9 +214,9 @@ function handleNameKeyup () {
  */
 function handleAddressKeyup () {
     if (shouldNotCleanResult()) return
-	let address = isValidAddress($('#address').val())
+	let error = isValidAddress($('#address').val())
 
-    if (address !== '') {
+    if (!error) {
 		$('#address-group').removeClass('on-error')
         $('#address-group').removeClass('on-error')
         $('.disable-on-addr-invalid').attr('disabled', false)
@@ -219,6 +225,8 @@ function handleAddressKeyup () {
         $('#address-group').addClass('on-error')
         $('.disable-on-addr-invalid').attr('disabled', true)
     }
+
+	$('#address-error').html(error)
 }
 
 /**
