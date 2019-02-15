@@ -1,9 +1,35 @@
 document.addEventListener('DOMContentLoaded', function () {
 	init()
 
-    $('#pay-rent').click(handlePayRent)
+  $('#pay-rent').click(handlePayRent)
 
 	nameUrlParameter(handleGetStatus)
+
+	$('#modal-mycrypto-ownership').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		$('#modal-mycrypto-ownership .modal-domain').html(name + '.' + config.tld)
+
+		let hash = web3.sha3(name)
+		$('#modal-mycrypto-ownership .modal-hash').html(hash)
+		handleCopy(hash, '#modal-mycrypto-ownership .modal-copy-hash', 'modal-mycrypto-ownership')
+	})
+
+	$('#modal-mycrypto-rent').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		$('#modal-mycrypto-rent #modal-domain').html(name + '.' + config.tld)
+
+		let to = config.contracts.registrar
+		$('#modal-mycrypto-rent #modal-to').html(to)
+		handleCopy(to, '#modal-mycrypto-rent #copy-to', 'modal-mycrypto-rent')
+
+		let tokens = 1e18
+		$('#modal-mycrypto-rent #modal-value').html(tokens)
+		handleCopy(tokens, '#modal-mycrypto-rent #copy-value', 'modal-mycrypto-rent')
+
+		let hash = web3.sha3(name)
+		$('#modal-mycrypto-rent #modal-data').html('0xe1ac9915<br />' + hash.slice(2, 66) + '<br />00000000000000000000000000000000000000000000000000000000')
+		handleCopy('0xe1ac9915' + hash.slice(2, 66) + '00000000000000000000000000000000000000000000000000000000', '#modal-mycrypto-rent #copy-data', 'modal-mycrypto-rent')
+	})
 })
 
 /**

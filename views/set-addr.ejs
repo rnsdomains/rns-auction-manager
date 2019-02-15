@@ -10,6 +10,14 @@
     <%- include templates/name %>
 </form>
 
+<br />
+
+<button type="button" class="btn" data-toggle="modal" data-target="#modal-mycrypto-addr">
+    <i class="fas fa-share-square"></i> Check address on MyCrypto
+</button>
+
+<br />
+
 <div class="alert alert-danger alert-dismissible" id="error-response" style="display: none;"></div>
 
 <br>
@@ -30,6 +38,12 @@
         <% include templates/address.ejs %>
     </form>
 
+    <br />
+
+    <button type="button" class="btn" data-toggle="modal" data-target="#modal-mycrypto-setaddr">
+        <i class="fas fa-share-square"></i> Set address on MyCrypto
+    </button>
+
     <br><br>
 
     <div id="action-alert"></div>
@@ -39,5 +53,77 @@
 <hr>
 
 <p>Learn more about the name resolution in the <a href="https://docs.rns.rsk.co/Architecture/Resolver#addr">documentation page</a>.</p>
+
+<div class="modal fade" id="modal-mycrypto-addr" tabindex="-1" role="dialog" aria-labelledby="MyCrypto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Check resolution address for <small class="modal-domain"></small> on MyCrypto</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.<br /></li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+                    <li>Select <b>RNS Resolver</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>On <i>Read / Write Contract</i> select <b>addr</b></li>
+                    <li>
+                        <div class="modal-body-container">
+                            Copy and paste this hash on <i>node bytes32</i>
+                            <i class="far fa-copy modal-copy-hash"></i><br />
+                        </div>
+                        <code class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                    </li>
+                    <li>Read!</li>
+                </ol>
+                <i>This works for domains using RNS Public Resolver or one implementing addr.</i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-mycrypto-setaddr" tabindex="-1" role="dialog" aria-labelledby="MyCrypto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Set resolution address for <small class="modal-domain"></small> on MyCrypto</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.<br /></li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+                    <li>Select <b>RNS Resolver</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>On <i>Read / Write Contract</i> select <b>setAddr</b></li>
+                    <li>
+                        Copy this values and paste them in MyCrypto fields:
+                        <ul>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>node bytes32</i>
+                                    <i class="far fa-copy modal-copy-hash"></i><br />
+                                </div>
+                                <code class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                            </li>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>addrValue address</i>
+                                    <i id="modal-copy-addr" class="far fa-copy"></i><br />
+                                </div>
+                                <code id="modal-addr" class="modal-code">0x000000000000000000000000000000</code>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Choose your checkout method.</li>
+                    <li>Check the gas according to <a href="https://stats.rsk.co/">RSK stats</a>.</li>
+                    <li>Write!</li>
+                </ol>
+                <i>This works for domains using RNS Public Resolver or one implementing addr.</i>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/scripts/set-addr.js"></script>

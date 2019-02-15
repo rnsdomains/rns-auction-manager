@@ -13,11 +13,19 @@
         <input type="text" class="form-control" id="label">
         <div id="subdomain-suffix" class="input-group-addon tld-addon"></div>
     </div>
+    <label id="subdomain-error"></label>
 </div>
 
 <% addrId = 'set-subnode' %>
 <% addrText = 'Set subnode owner' %>
 <% include templates/address.ejs %>
+
+<br />
+<br />
+
+<button type="button" class="btn" data-toggle="modal" data-target="#modal-mycrypto-subnode">
+    <i class="fas fa-share-square"></i> Set subnode owner on MyCrypto
+</button>
 
 <br><br>
 
@@ -30,5 +38,54 @@
 <hr>
 
 <p>Learn more about subdomains in the <a href="https://docs.rns.rsk.co/Architecture/Registry#setsubnodeowner">documentation page</a>.</p>
+
+<div class="modal fade" id="modal-mycrypto-subnode" tabindex="-1" role="dialog" aria-labelledby="MyCrypto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Set owner for <small id="modal-domain"></small> on MyCrypto</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.<br /></li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+                    <li>Select <b>RNS Registry</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>On <i>Read / Write Contract</i> select <b>setSubnodeOwner</b></li>
+                    <li>
+                        Copy this values and paste them in MyCrypto fields:
+                        <ul>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>node bytes32</i>
+                                    <i id="modal-copy-node" class="far fa-copy"></i><br />
+                                </div>
+                                <code id="modal-node" class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                            </li>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>label bytes32</i>
+                                    <i id="modal-copy-label" class="far fa-copy"></i><br />
+                                </div>
+                                <code id="modal-label" class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                            </li>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>addrValue address</i>
+                                    <i id="modal-copy-addr" class="far fa-copy"></i><br />
+                                </div>
+                                <code id="modal-addr" class="modal-code">0x000000000000000000000000000000</code>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Choose your checkout method.</li>
+                    <li>Check the gas according to <a href="https://stats.rsk.co/">RSK stats</a>.</li>
+                    <li>Write!</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/scripts/set-subnode.js"></script>

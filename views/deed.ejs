@@ -10,7 +10,14 @@
     <%- include templates/name %>
 </form>
 
-<br><br>
+<br />
+
+<button type="button" class="btn" data-toggle="modal" data-target="#modal-mycrypto-ownership">
+    <i class="fas fa-share-square"></i> Check on MyCrypto
+</button>
+
+<br />
+<br />
 
 <%- include templates/server-error %>
 
@@ -55,6 +62,16 @@
         <button id="pay-rent" class="btn btn-default">Pay rent (1 RIF)</button>
         <i id="pay-rent-loading" class="fas fa-spinner loading" style="display: none;"></i>
 
+        <br />
+        <br />
+
+        <button type="button" class="btn" data-toggle="modal" data-target="#modal-mycrypto-rent">
+            <i class="fas fa-share-square"></i> Pay on MyCrypto
+        </button>
+
+        <br />
+        <br />
+
         <% include templates/tx-readme %>
 
         <div class="alert alert-success alert-dismissible" style="display:none;">
@@ -72,5 +89,98 @@
 <hr>
 
 <p>Read more on the <a href="https://docs.rns.rsk.co/Operation/Register-a-name#the-storage-rent-payment" title="Registrer a name">documentation page</a>.</p>
+
+<div class="modal fade" id="modal-mycrypto-ownership" tabindex="-1" role="dialog" aria-labelledby="MyCrypto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Check <small class="modal-domain"></small> on MyCrypto</h4>
+            </div>
+            <div class="modal-body">
+                First we are going to get deed address, that contains the ownership information:
+                <ol>
+                    <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.<br /></li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+                    <li>Select <b>RNS Resolver</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>On <i>Read / Write Contract</i> select <b>entries</b></li>
+                    <li>
+                        <div class="modal-body-container">
+                            Copy and paste this hash on <i>node bytes32</i>
+                            <i class="far fa-copy modal-copy-hash"></i><br />
+                        </div>
+                        <code class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                    </li>
+                    <li>Read!</li>
+                </ol>
+                The response named <i>address</i> is the deed address. Copy this address. Now we are going to get the info:
+                <ol>
+                    <li>Select <b>Custom</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Copy your deed's address on <i>Contract address</i></li>
+                    <li>Copy the Deed ABI you find <a target="_blank" href="https://docs.rns.rsk.co/Architecture/DeedABI.json">here</a>.</li>
+                    <li>Access!</li>
+                </ol>
+                You can now check the info selecting an option in <i>Read / Write Contract</i> and clicking on read button:
+                <ul>
+                    <li><b>owner</b> to check the domain's owner</li>
+                    <li><b>tokenQuantity</b> to check the actual highest bid on reveal phase or check if the auction was already finalized.</li>
+                    <li><b>expirationDate</b> to check the expiration date in milliseconds.</li>
+                    <li><b>canPayRent</b> to check if it's time to pay the rent.</li>
+                    <li><b>expired</b> to check if the domain ownership has expired.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-mycrypto-rent" tabindex="-1" role="dialog" aria-labelledby="MyCrypto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Pay rent for <small id="modal-domain"></small> on MyCrypto</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.</li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+                    <li>Select <b>RIF</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>On <i>Read / Write Contract</i> select <b>transferAndCall</b>.</li>
+                    <li>
+                        Copy and paste
+                        <ul>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>_to address</i>
+                                    <i id="copy-to" class="far fa-copy modal-copy-hash"></i><br />
+                                </div>
+                                <code id="modal-to" class="modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                            </li>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>_value uint256</i>
+                                    <i id="copy-value" class="far fa-copy modal-copy-hash"></i><br />
+                                </div>
+                                <code id="modal-value" class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                            </li>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>_data bytes</i>
+                                    <i id="copy-data" class="far fa-copy modal-copy-hash"></i><br />
+                                </div>
+                                <div id="modal-data" class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Choose your checkout method.</li>
+                    <li>Check the gas according to <a href="https://stats.rsk.co/">RSK stats</a>.</li>
+                    <li>Write!</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/scripts/deed.js"></script>

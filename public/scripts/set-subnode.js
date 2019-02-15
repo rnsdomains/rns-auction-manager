@@ -8,6 +8,22 @@ document.addEventListener('DOMContentLoaded', function () {
 	nameUrlParameter()
 
 	handleValidations()
+
+	$('#modal-mycrypto-subnode').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		let hash = namehash(name)
+		let label = $('#label').val()
+		let labelHash = web3.sha3(label)
+		let address = $('#address').val()
+
+		$('#modal-domain').html(label + '.' + name + '.' + config.tld)
+		$('#modal-node').html(hash)
+		handleCopy(hash, '#modal-copy-node', 'modal-mycrypto-subnode')
+		$('#modal-label').html(labelHash)
+		handleCopy(labelHash, '#modal-copy-label', 'modal-mycrypto-subnode')
+		$('#modal-addr').html(address)
+		handleCopy(address, '#modal-copy-addr', 'modal-mycrypto-subnode')
+	})
 })
 
 function handleValidations () {
@@ -16,23 +32,29 @@ function handleValidations () {
 	let addressValid = false
 
 	$('#name').keyup(() => {
-		nameValid = isValidName($('#name').val())
-		if (!nameValid) $('#name-group').addClass('on-error')
+		error = isValidName($('#name').val())
+		nameValid = !error
+		if (error) $('#name-group').addClass('on-error')
 		else $('#name-group').removeClass('on-error')
+		$('#name-error').html(error)
 		$('#subdomain-suffix').html('.' + $('#name').val() + '.' + config.tld)
 		displayValidations()
 	})
 
 	$('#label').keyup(() => {
-		labelValid = isValidLabel($('#label').val())
-        if (labelValid)  $('#label-group').removeClass('on-error')
-        else $('#label-group').addClass('on-error')
+		error = isValidLabel($('#label').val())
+		labelValid = !error
+		if (!error) $('#label-group').removeClass('on-error')
+		else $('#label-group').addClass('on-error')
+		$('#subdomain-error').html(error)
 		displayValidations()
-    })
+	})
 
 	$('#address').keyup(() => {
-		let address = isValidAddress($('#address').val())
-		addressValid = address !== ''
+		let error = isValidAddress($('#address').val())
+		addressValid = !error
+
+		$('#address-error').html(error)
 
 		if (addressValid) $('#address-group').removeClass('on-error')
 		else $('#address-group').addClass('on-error')
@@ -49,7 +71,7 @@ function handleValidations () {
 }
 
 function handleSetSubnode () {
-	var RNS = getRNS()
+	let RNS = getRNS()
 
 	let node =  $('#name').val() + '.' + config.tld
 	let label = $('#label').val()
@@ -57,8 +79,8 @@ function handleSetSubnode () {
 
 	executeTx('#addr-action-loading', '#set-subnode')
 
-	var hash = namehash(node)
-	var labelHash = web3.sha3(label)
+	let hash = namehash(node)
+	let labelHash = web3.sha3(label)
 
 	RNS.setSubnodeOwner(hash, labelHash, address, (err, res) => {
 		finalizeTx('#addr-action-loading', '#set-subnode', err, res)

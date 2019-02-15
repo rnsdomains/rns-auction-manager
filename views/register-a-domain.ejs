@@ -10,6 +10,8 @@
     <%- include templates/name %>
 </form>
 
+<br />
+
 <div class="row hide-on-name-keyup" id="result" style="display: none;">
     <div class="col-md-12">
         <h2>State: <span id="domain-state"></span></h2>
@@ -21,8 +23,6 @@
 <% include templates/no-metamask.ejs %>
 
 <div class="domain-registration-stage-panel hide-on-name-keyup" style="display:none;">
-
-    <h3>Domain registration stage</h3>
 
     <% include templates/tx-readme %>
 
@@ -37,6 +37,14 @@
         <section id="start-auction" class="step">
             <p>The domain is open to auction, to start the auction press the 'Start auction' button and confirm the transaction in MetaMask.</p>
             <button id="start-auction-button" class="btn btn-default action">Start Auction</button>
+
+            <br />
+            <br />
+
+            <button type="button" class="btn" data-toggle="modal" data-target="#modal-mycrypto-open">
+                <i class="fas fa-share-square"></i> Start auction on MyCrypto
+            </button>
+
             <i id="loading-start-auction" class="fas fa-spinner loading" style="display:none;"></i>
             <div class="alert alert-success alert-dismissible" style="display: none;">
                 <b>Successful transaction!</b>
@@ -63,6 +71,7 @@
                         <input type="number" name="tokens" id="bid-tokens" class="form-control" min=1>
                         <div class="input-group-addon">RIF</div>
                     </div>
+                    <label id="bid-tokens-error"></label>
                 </div>
                 <div class="form-group">
                     <label for="salt">Salt</label>
@@ -78,6 +87,12 @@
                 <button id="make-bid" type="submit" class="btn btn-default action">Bid</button>
                 <i id="loading-make-bid" class="fas fa-spinner loading" style="display: none;"></i>
             </form>
+
+            <br />
+
+            <button type="button" class="btn" data-toggle="modal" data-target="#modal-mycrypto-auction">
+                <i class="fas fa-share-square"></i> Bid on MyCrypto
+            </button>
 
             <br><br>
 
@@ -118,6 +133,12 @@
                 <i id="loading-reveal-bid" class="fas fa-spinner loading" style="display:none;"></i>
             </form>
 
+            <br />
+
+            <button type="button" class="btn" data-toggle="modal" data-target="#modal-mycrypto-reveal">
+                <i class="fas fa-share-square"></i> Reveal on MyCrypto
+            </button>
+
             <br><br>
 
             <div class="alert alert-success alert-dismissible" style="display:none;">
@@ -131,6 +152,13 @@
             <p>The auction has finished! Click on finalize auction, if you are the winner, take ownership of your new name.</p>
             <button id="finalize-auction" type="submit" class="btn btn-default action">Finalize Auction</button>
             <i id="loading-finalize-auction" class="fas fa-spinner loading" style="display:none;"></i>
+
+            <br />
+            <br />
+
+            <button type="button" class="btn" data-toggle="modal" data-target="#modal-mycrypto-owned">
+                <i class="fas fa-share-square"></i> Finalize auction on MyCrypto
+            </button>
 
             <br><br>
 
@@ -154,5 +182,205 @@
 <hr>
 
 <p>Read more on the <a href="https://docs.rns.rsk.co/Operation/Register-a-name/" title="Registrer a name">documentation page</a>.</p>
+
+<div class="modal fade" id="modal-mycrypto-open" tabindex="-1" role="dialog" aria-labelledby="MyCrypto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Start auciton for <small id="modal-domain"></small> on MyCrypto</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.</li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+                    <li>Select <b>RNS Registrar</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>On <i>Read / Write Contract</i> select <b>startAuction</b>.</li>
+                    <li>
+                        <div class="modal-body-container">
+                            Copy and paste this hash on <i>_hash bytes32</i>
+                            <i class="far fa-copy modal-copy-hash"></i><br />
+                        </div>
+                        <code class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                    </li>
+                    <li>Choose your checkout method.</li>
+                    <li>Check the gas according to <a href="https://stats.rsk.co/">RSK stats</a>.</li>
+                    <li>Write!</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-mycrypto-auction" tabindex="-1" role="dialog" aria-labelledby="MyCrypto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Bid for <small id="modal-domain"></small> on MyCrypto</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.</li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+                    <li>
+                        First we are going to seal the bid:
+                        <ol>
+                            <li>Select <b>RNS Registrar</b> contract on <i>Existing Contract</i> selector.</li>
+                            <li>Access!</li>
+                            <li>On <i>Read / Write Contract</i> select <b>shaBid</b>.</li>
+                            <li>
+                                Copy this values and paste them in MyCrypto fields:
+                                <ul>
+                                    <li>
+                                        <div class="modal-body-container">
+                                            on <i>_hash bytes32</i>
+                                            <i id="copy-hash" class="far fa-copy modal-copy-hash"></i><br />
+                                        </div>
+                                        <code id="modal-hash" class="modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                                    </li>
+                                    <li><i>_owner address</i>: the domain's owner. You may want to use your wallet address.</li>
+                                    <li>
+                                        <div class="modal-body-container">
+                                            on <i>_value byte256</i>
+                                            <i id="copy-value" class="far fa-copy modal-copy-hash"></i><br />
+                                        </div>
+                                        <code id="modal-value" class="modal-code">0</code>
+                                    </li>
+                                    <li>
+                                        <div class="modal-body-container">
+                                            on <i>_salt bytes32</i>
+                                            <i id="copy-salt" class="far fa-copy modal-copy-hash"></i><br />
+                                        </div>
+                                        <code id="modal-salt" class="modal-code">0x00</code>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>Read!</li>
+                        </ol>
+                    </li>
+                    <b>Remember you must save all this data to unseal the bid on reveal phase!</b>
+                    <li>
+                        Copy the response here:
+                        <input type="text" class="form-control input-sm" id="mycrypto-shabid" />
+                        <i id="invalid-shabid-mycrypto">The hash is invalid. Copy and paste it again please.</i>
+                    </li>
+                    <li>On MyCrypto, select <b>RIF</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>On <i>Read / Write Contract</i> select <b>transferAndCall</b>.</li>
+                    <li>
+                        Copy this values and paste them in MyCrypto fields:
+                        <ul>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>_to address</i>
+                                    <i id="copy-to" class="far fa-copy modal-copy-hash"></i><br />
+                                </div>
+                                <code id="modal-to" class="modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                            </li>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>_value uint256</i> (or a higher value)
+                                    <i id="copy-value" class="far fa-copy modal-copy-hash"></i><br />
+                                </div>
+                                <code id="modal-value" class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                            </li>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>_data bytes</i>
+                                    <i id="copy-data" class="far fa-copy modal-copy-hash"></i><br />
+                                </div>
+                                <div id="modal-data" class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Choose your checkout method.</li>
+                    <li>Check the gas according to <a href="https://stats.rsk.co/">RSK stats</a>.</li>
+                    <li>Write!</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-mycrypto-reveal" tabindex="-1" role="dialog" aria-labelledby="MyCrypto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Reveal bid for <small id="modal-domain"></small> on MyCrypto</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.</li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+                    <li>Select <b>RNS Registrar</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>On <i>Read / Write Contract</i> select <b>unsealBid</b>.</li>
+                    <li>
+                        Copy this values and paste them in MyCrypto fields:
+                        <ul>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>_hash bytes32</i>
+                                    <i id="copy-hash" class="far fa-copy modal-copy-hash"></i><br />
+                                </div>
+                                <code id="modal-hash" class="modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                            </li>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>_value uint256</i>
+                                    <i id="copy-value" class="far fa-copy modal-copy-hash"></i><br />
+                                </div>
+                                <code id="modal-value" class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                            </li>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>_salt bytes32</i>
+                                    <i id="copy-salt" class="far fa-copy modal-copy-hash"></i><br />
+                                </div>
+                                <div id="modal-salt" class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Choose your checkout method.</li>
+                    <li>Check the gas according to <a href="https://stats.rsk.co/">RSK stats</a>.</li>
+                    <li>Write!</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-mycrypto-owned" tabindex="-1" role="dialog" aria-labelledby="MyCrypto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Finalize auction for <small id="modal-domain"></small> on MyCrypto</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.</li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+                    <li>Select <b>RNS Registrar</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>On <i>Read / Write Contract</i> select <b>finalizeAuction</b>.</li>
+                    <li>
+                        <div class="modal-body-container">
+                            Copy and paste this hash on <i>_hash bytes32</i>
+                            <i class="far fa-copy modal-copy-hash"></i><br />
+                        </div>
+                        <code class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                    </li>
+                    <li>Choose your checkout method.</li>
+                    <li>Check the gas according to <a href="https://stats.rsk.co/">RSK stats</a>.</li>
+                    <li>Write!</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/scripts/register-a-domain.js"></script>

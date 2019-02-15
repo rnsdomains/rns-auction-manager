@@ -12,6 +12,13 @@
 
 <br />
 
+<button type="button" class="btn" data-toggle="modal" data-target="#modal-mycrypto-owner">
+    <i class="fas fa-share-square"></i> Check owner on MyCrypto
+</button>
+
+<br />
+<br />
+
 <% include templates/no-metamask.ejs %>
 
 <div id="no-owner" class="response hide-on-name-keyup" style="display: none;">
@@ -22,11 +29,17 @@
 <% include templates/tx-readme %>
 
 <div id="owner-response" class="response hide-on-name-keyup" style="display: none;">
-    <form onsubmit="return handleSetAddr()">
+    <form onsubmit="return handleSetOwner()">
         <% addrId = 'set-owner' %>
         <% addrText = 'Set owner' %>
         <% include templates/address.ejs %>
     </form>
+
+    <br />
+
+    <button type="button" class="btn" data-toggle="modal" data-target="#modal-mycrypto-setowner">
+        <i class="fas fa-share-square"></i> Set owner on MyCrypto
+    </button>
 
     <br><br>
 
@@ -36,5 +49,75 @@
 <hr>
 
 <p>Learn more about the ownership of domains in the <a href="https://docs.rns.rsk.co/Architecture/Registry#transfer-ownership">documentation page</a>.</p>
+
+<div class="modal fade" id="modal-mycrypto-owner" tabindex="-1" role="dialog" aria-labelledby="MyCrypto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Check <small class="modal-domain"></small>'s owner on MyCrypto</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.<br /></li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+                    <li>Select <b>RNS Registry</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>On <i>Read / Write Contract</i> select <b>owner</b></li>
+                    <li>
+                        <div class="modal-body-container">
+                            Copy and paste this hash on <i>node bytes32</i>
+                            <i class="far fa-copy modal-copy-hash"></i><br />
+                        </div>
+                        <code class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                    </li>
+                    <li>Read!</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-mycrypto-setowner" tabindex="-1" role="dialog" aria-labelledby="MyCrypto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Set <small class="modal-domain"></small>'s owner on MyCrypto</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.<br /></li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+                    <li>Select <b>RNS Registry</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>On <i>Read / Write Contract</i> select <b>setAddr</b></li>
+                    <li>
+                        Copy this values and paste them in MyCrypto fields:
+                        <ul>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>node bytes32</i>
+                                    <i class="far fa-copy modal-copy-hash"></i><br />
+                                </div>
+                                <code class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                            </li>
+                            <li>
+                                <div class="modal-body-container">
+                                    on <i>ownerAddress address</i>
+                                    <i id="modal-copy-addr" class="far fa-copy"></i><br />
+                                </div>
+                                <code id="modal-addr" class="modal-code">0x000000000000000000000000000000</code>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Choose your checkout method.</li>
+                    <li>Check the gas according to <a href="https://stats.rsk.co/">RSK stats</a>.</li>
+                    <li>Write!</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/scripts/set-owner.js"></script>

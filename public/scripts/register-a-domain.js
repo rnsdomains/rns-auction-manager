@@ -9,6 +9,84 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	$('#start-auction-button').click(handleStartAuction)
 	$('#finalize-auction').click(handleFinalize)
+
+	$('#modal-mycrypto-open').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		let hash = web3.sha3(name)
+
+		$('#modal-mycrypto-open #modal-domain').html(name + '.' + config.tld)
+		$('#modal-mycrypto-open .modal-hash').html(hash)
+
+		handleCopy(hash, '#modal-mycrypto-open .modal-copy-hash', 'modal-mycrypto-open')
+	})
+
+	$('#modal-mycrypto-auction').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		let hash = web3.sha3(name)
+		let address = web3.eth.defaultAccount
+		let tokens = $('#bid-tokens').val() * (10 ** 18)
+		let salt = $('#bid-salt').val()
+
+		$('#modal-mycrypto-auction #modal-domain').html(name + '.' + config.tld)
+
+		let to = config.contracts.registrar
+		$('#modal-mycrypto-auction #modal-to').html(to)
+		handleCopy(to, '#modal-mycrypto-auction #copy-to', 'modal-mycrypto-auction')
+
+		$('#modal-mycrypto-auction #modal-value').html(tokens)
+		handleCopy(tokens, '#modal-mycrypto-auction #copy-value', 'modal-mycrypto-auction')
+
+		$('#modal-mycrypto-auction #modal-hash').html(hash)
+		handleCopy(hash, '#modal-mycrypto-auction #copy-hash', 'modal-mycrypto-auction')
+
+		$('#modal-mycrypto-auction #modal-value').html(tokens)
+		handleCopy(tokens, '#modal-mycrypto-auction #copy-value', 'modal-mycrypto-auction')
+
+		$('#modal-mycrypto-auction #modal-salt').html(salt)
+		handleCopy(salt, '#modal-mycrypto-auction #copy-salt', 'modal-mycrypto-auction')
+
+		$('#mycrypto-shabid').keyup((event, args) => {
+			let regexp = new RegExp('^0x[a-f0-9]{64}$')
+			let shabid = event.target.value.trim()
+			let isvalidshabid = regexp.test(shabid)
+			$('#invalid-shabid-mycrypto').prop('hidden', isvalidshabid)
+			let shabidvalue = shabid.slice(2, 66)
+			$('#modal-mycrypto-auction #modal-data').html('0x1413151f<br />' + shabidvalue + '<br />00000000000000000000000000000000000000000000000000000000')
+			handleCopy('0x1413151f' + shabidvalue + '00000000000000000000000000000000000000000000000000000000', '#modal-mycrypto-auction #copy-data', 'modal-mycrypto-auction')
+		})
+	})
+
+	$('#modal-mycrypto-reveal').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		let hash = web3.sha3(name)
+		let tokens = $('#reveal-tokens').val() * (10 ** 18)
+		let salt = $('#reveal-salt').val()
+
+		$('#modal-mycrypto-reveal #modal-domain').html(name + '.' + config.tld)
+
+		$('#modal-mycrypto-reveal #modal-hash').html(hash)
+		handleCopy(hash, '#modal-mycrypto-reveal #copy-hash', 'modal-mycrypto-reveal')
+
+		$('#modal-mycrypto-reveal #modal-value').html(tokens)
+		handleCopy(tokens, '#modal-mycrypto-reveal #copy-value', 'modal-mycrypto-reveal')
+
+		$('#modal-mycrypto-reveal #modal-salt').html(salt)
+		handleCopy(salt, '#modal-mycrypto-reveal #copy-salt', 'modal-mycrypto-reveal')
+	})
+
+	$('#modal-mycrypto-owned').on('shown.bs.modal', () => {
+		let name = $('#name').val()
+		$('#modal-mycrypto-owned #modal-domain').html(name + '.' + config.tld)
+
+		let hash = web3.sha3(name)
+		$('#modal-mycrypto-owned .modal-hash').html(hash)
+		handleCopy(hash, '#modal-mycrypto-owned .modal-copy-hash', 'modal-mycrypto-owned')
+	})
+
+	$('#bid-tokens').keyup(() => {
+		let error = $('#bid-tokens').val() < 1 ? 'You must bid at least 1 RIF' : null
+		$('#bid-tokens-error').html(error)
+	})
 })
 
 /**
@@ -51,6 +129,7 @@ function handleStartAuction () {
 		if (err) {
 			$('#error-detail').html(err)
 			$('#error-response').show()
+			$('#start-auction-button').prop('disabled', false)
 		} else {
 			let c = $('#start-auction .alert-success')
 			let l = $('a.explorer-link', c)
@@ -86,6 +165,7 @@ function handleBid () {
 				if (err) {
 					$('#error-response').show()
 					$('#error-detail').html(err)
+					$('#make-bid').prop('disabled', false)
 				} else {
 					let c = $('#bid .alert-success')
 					let l = $('a.explorer-link', c)
@@ -126,6 +206,7 @@ function handleReveal () {
 		if(err) {
 			$('#error-response').show()
 			$('#error-detail').html(err)
+			$('#reveal-bid').prop('disabled', false)
 		} else {
 			let c = $('#reveal .alert-success')
 			let l = $('a.explorer-link', c)
@@ -156,6 +237,7 @@ function handleFinalize () {
 			$('#finalize-auction').prop('disabled', false)
 			$('#error-response').show()
 			$('#error-detail').html(err)
+			$('#finalize-auction').prop('disabled', false)
 		} else {
 			let c = $('#finalize .alert-success')
 			let l = $('a.explorer-link', c)
@@ -194,7 +276,7 @@ function displayStatus (response) {
 			var ca = $('.addeventatc', c)
 
 			let RIF = getRIF()
-			RIF.balanceOf(web3.eth.accounts[0], (err, res) => {
+			RIF.balanceOf(web3.eth.accounts[0] || '0x00', (err, res) => {
 				if (web3.fromWei(res) < 1) $('#insuficient-rif').show()
 			})
 

@@ -10,7 +10,14 @@
     <%- include templates/name %>
 </form>
 
-<br><br>
+<br />
+
+<button type="button" class="btn" data-toggle="modal" data-target="#modal-mycrypto">
+    <i class="fas fa-share-square"></i> View on MyCrypto
+</button>
+
+<br />
+<br />
 
 <%- include templates/server-error %>
 
@@ -31,5 +38,60 @@
 <hr>
 
 <p>Learn more about the name resolution in the <a href="https://docs.rns.rsk.co/Architecture/Resolver">documentation page</a>.</p>
+
+<div class="modal fade" id="modal-mycrypto" tabindex="-1" role="dialog" aria-labelledby="MyCrypto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Resolve <small id="modal-domain"></small> on MyCrypto</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>
+                        Go to My Crypto contract interaction on your <a target="_blank" href="https://mycrypto.com/contracts/interact" class="modal-link">browser</a> or native app.<br />
+                        <i>If you are sure that the Resolver is the RNS Public Resolver you can jump to step 5.</i>
+                    </li>
+                    <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+                    <li>Select <b>RNS Registry</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>Now check if Resolver is the Public Resolver (supported by MyCrypto):
+                        <ol>
+                            <li>On <i>Read / Write Contract</i> select <b>resolver</b>.</li>
+                            <li>
+                                <div class="modal-body-container">
+                                    Copy and paste this hash on <i>node bytes32</i>
+                                    <i class="far fa-copy modal-copy-hash"></i><br />
+                                </div>
+                                <code class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                            </li>
+                            <li>Read!</li>
+                            <li>
+                                If response is <b>0x4EfD25E3D348F8F25a14Fb7655FbA6F72edFE93A</b> (RNS Public Resolver address) continue on step 5.<br />
+                                If response is <b>0x0000000000000000000000000000000000000000</b> the domain has no owner. <a id="modal-domain-status">Check the domain status</a>.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>Select <b>RNS Resolver</b> contract on <i>Existing Contract</i> selector.</li>
+                    <li>Access!</li>
+                    <li>Now let's Resolve the domain:
+                        <ul>
+                            <li>On <i>Read / Write Contract</i> select <b>addr</b></li>
+                            <li>
+                                <div class="modal-body-container">
+                                    Copy and paste this hash on <i>node bytes32</i>
+                                    <i class="far fa-copy modal-copy-hash"></i><br />
+                                </div>
+                                <code class="modal-hash modal-code">0x0000000000000000000000000000000000000000000000000000000000000000</code>
+                            </li>
+                            <li>Read!</li>
+                        </ul>
+                    </li>
+                </ol>
+                <p>The response is the address resolved by the domain!</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/scripts/resolve.js"></script>
