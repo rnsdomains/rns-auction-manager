@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	$('#modal-mycrypto-owner').on('shown.bs.modal', () => {
 		let name = $('#name').val()
-		let hash = web3.sha3(name)
+		let hash = namehash(name)
 
 		$('#modal-mycrypto-owner .modal-domain').html(name + '.' + config.tld)
 		$('#modal-mycrypto-owner .modal-hash').html(hash)
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	$('#modal-mycrypto-setowner').on('shown.bs.modal', () => {
 		let name = $('#name').val()
-		let hash = web3.sha3(name)
+		let hash = namehash(name)
 		let address = $('#address').val()
 
 		$('#modal-mycrypto-setowner .modal-domain').html(name + '.' + config.tld)
