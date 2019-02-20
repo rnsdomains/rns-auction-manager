@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
 	handleValidations()
 
 	$('#modal-mycrypto-subnode').on('shown.bs.modal', () => {
-		let name = $('#name').val()
+		let name = $('#name').val() + '.' + config.tld
 		let hash = namehash(name)
 		let label = $('#label').val()
 		let labelHash = web3.sha3(label)
 		let address = $('#address').val()
 
-		$('#modal-domain').html(label + '.' + name + '.' + config.tld)
+		$('#modal-domain').html(label + '.' + name)
 		$('#modal-node').html(hash)
 		handleCopy(hash, '#modal-copy-node', 'modal-mycrypto-subnode')
 		$('#modal-label').html(labelHash)

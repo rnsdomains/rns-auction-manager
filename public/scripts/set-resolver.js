@@ -9,20 +9,20 @@ document.addEventListener('DOMContentLoaded', function () {
 	nameUrlParameter(handleGetRecord)
 
 	$('#modal-mycrypto-resolver').on('shown.bs.modal', () => {
-		let name = $('#name').val()
+		let name = $('#name').val() + '.' + config.tld
 		let hash = namehash(name)
 
-		$('#modal-mycrypto-resolver .modal-domain').html(name + '.' + config.tld)
+		$('#modal-mycrypto-resolver .modal-domain').html(name)
 		$('#modal-mycrypto-resolver .modal-hash').html(hash)
 		handleCopy(hash, '#modal-mycrypto-resolver .modal-copy-hash', 'modal-mycrypto-resolver')
 	})
 
 	$('#modal-mycrypto-setresolver').on('shown.bs.modal', () => {
-		let name = $('#name').val()
+		let name = $('#name').val() + '.' + config.tld
 		let hash = namehash(name)
 		let address = $('#address').val()
 
-		$('#modal-mycrypto-setresolver .modal-domain').html(name + '.' + config.tld)
+		$('#modal-mycrypto-setresolver .modal-domain').html(name)
 		$('#modal-mycrypto-setresolver .modal-hash').html(hash)
 		handleCopy(hash, '#modal-mycrypto-setresolver .modal-copy-hash', 'modal-mycrypto-setresolver')
 		$('#modal-addr').html(address)
