@@ -1,7 +1,7 @@
 
 # RNS Manager
 
-The RNS Manager is hosted on [manager.rns.rsk.co](https://manager.rns.rsk.co)
+The RNS Manager is hosted on [manager.rns.rifos.org](https://manager.rns.rifos.org)
 
 ## Configure
 To run locally, open a **terminal** and run
@@ -66,7 +66,7 @@ Now browse to http://localhost:3000.
 
 # Documentation
 
-For more details see the [documentation](https://docs.rns.rsk.co)
+For more details see the [documentation](https://docs.rns.rifos.org)
 
 # Contributors
 
