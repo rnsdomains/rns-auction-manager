@@ -68,10 +68,12 @@ function handleSetResolver () {
 
 	let hash = namehash(name + '.' + config.tld)
 
-    $('.disable-on-addr-invalid').attr('disabled', true)
+  $('.disable-on-addr-invalid').attr('disabled', true)
 
-	RNS.setResolver(hash, address, (err, res) => finalizeTx(
-		'#addr-action-loading', '#set-resolver', err, res))
+	window.ethereum.enable().then(() => {
+		RNS.setResolver(hash, address, (err, res) => finalizeTx(
+			'#addr-action-loading', '#set-resolver', err, res))
+	})
 
 	return false
 }

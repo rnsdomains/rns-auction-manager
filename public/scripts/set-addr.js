@@ -46,7 +46,7 @@ function handleGetRecord () {
 			let resolver = getResolver(res)
 
 			resolver.addr(hash, (err2, res2) => {
-				$('#display-address').html(toChecksumAddress(res2, config.chainId))
+				$('#display-address').html(toChecksumAddress(res2, config.chainid))
 				$('#addr-response').show()
 			})
 		}
@@ -74,17 +74,19 @@ function handleSetAddr () {
 	$('#addr-action-loading').show()
   $('.disable-on-addr-invalid').attr('disabled', true)
 
-	RNS.resolver(hash, (err, res) => {
-		if (!err) {
-			let resolver = getResolver(res)
-			let address = $('#address').val()
+	window.ethereum.enable().then(() => {
+		RNS.resolver(hash, (err, res) => {
+			if (!err) {
+				let resolver = getResolver(res)
+				let address = $('#address').val()
 
-			resolver.setAddr(hash, address, (err2, res2) => {
-				finalizeTx('#addr-action-loading', '#set-addr', err2, res2)
-				if (!err2) $('#check-resolution').show()
-				else $('#set-addr').prop('disabled', false)
-			})
-		}
+				resolver.setAddr(hash, address, (err2, res2) => {
+					finalizeTx('#addr-action-loading', '#set-addr', err2, res2)
+					if (!err2) $('#check-resolution').show()
+					else $('#set-addr').prop('disabled', false)
+				})
+			}
+		})
 	})
 
 	return false

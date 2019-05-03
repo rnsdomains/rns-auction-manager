@@ -123,20 +123,22 @@ function handleStartAuction () {
 
 	let hash = web3.sha3(name)
 
-	registrar.startAuction(hash, (err, res) => {
-		$('#loading-start-auction').hide()
+	window.ethereum.enable().then(() => {
+		registrar.startAuction(hash, (err, res) => {
+			$('#loading-start-auction').hide()
 
-		if (err) {
-			$('#error-detail').html(err)
-			$('#error-response').show()
-			$('#start-auction-button').prop('disabled', false)
-		} else {
-			let c = $('#start-auction .alert-success')
-			let l = $('a.explorer-link', c)
-			c.show()
-			l.html(res)
-			l.attr('href', config.explorer.url + config.explorer.tx + res)
-		}
+			if (err) {
+				$('#error-detail').html(err)
+				$('#error-response').show()
+				$('#start-auction-button').prop('disabled', false)
+			} else {
+				let c = $('#start-auction .alert-success')
+				let l = $('a.explorer-link', c)
+				c.show()
+				l.html(res)
+				l.attr('href', config.explorer.url + config.explorer.tx + res)
+			}
+		})
 	})
 }
 
@@ -152,36 +154,38 @@ function handleBid () {
 	executeTx('#loading-make-bid', '#make-bid')
 
 	let hash = web3.sha3(name)
-	let address = web3.eth.defaultAccount
 	let tokens = $('#bid-tokens').val() * (10 ** 18)
 	let salt = $('#bid-salt').val()
 
-	registrar.shaBid(hash, address, tokens, salt, (shaerr, shares) => {
-		handleMetamask(shaerr, shares, '#action-alert')
-		if (!shaerr) {
-			RIF.transferAndCall(registrar.address, tokens, '0x1413151f' + shares.slice(2), (err, res) => {
-				$('#loading-make-bid').hide()
+	window.ethereum.enable().then(accounts => {
+		let address = accounts[0]
+		registrar.shaBid(hash, address, tokens, salt, (shaerr, shares) => {
+			handleMetamask(shaerr, shares, '#action-alert')
+			if (!shaerr) {
+				RIF.transferAndCall(registrar.address, tokens, '0x1413151f' + shares.slice(2), (err, res) => {
+					$('#loading-make-bid').hide()
 
-				if (err) {
-					$('#error-response').show()
-					$('#error-detail').html(err)
-					$('#make-bid').prop('disabled', false)
-				} else {
-					let c = $('#bid .alert-success')
-					let l = $('a.explorer-link', c)
-					let d = $('button.download', c)
-					c.show()
-					l.html(res)
-					l.attr('href', config.explorer.url + config.explorer.tx + res)
+					if (err) {
+						$('#error-response').show()
+						$('#error-detail').html(err)
+						$('#make-bid').prop('disabled', false)
+					} else {
+						let c = $('#bid .alert-success')
+						let l = $('a.explorer-link', c)
+						let d = $('button.download', c)
+						c.show()
+						l.html(res)
+						l.attr('href', config.explorer.url + config.explorer.tx + res)
 
-					d.attr('data-name', name)
-					d.attr('data-sha3', hash)
-					d.attr('data-address', address)
-					d.attr('data-tokens', tokens)
-					d.attr('data-salt', salt)
-				}
-			})
-		}
+						d.attr('data-name', name)
+						d.attr('data-sha3', hash)
+						d.attr('data-address', address)
+						d.attr('data-tokens', tokens)
+						d.attr('data-salt', salt)
+					}
+				})
+			}
+		})
 	})
 
 	return false
@@ -200,20 +204,22 @@ function handleReveal () {
 	let tokens = $('#reveal-tokens').val() * (10 ** 18)
 	let salt = $('#reveal-salt').val()
 
-	registrar.unsealBid(hash, tokens, salt, (err, res) =>  {
-		$('#loading-reveal-bid').hide()
+	window.ethereum.enable().then(() => {
+		registrar.unsealBid(hash, tokens, salt, (err, res) =>  {
+			$('#loading-reveal-bid').hide()
 
-		if(err) {
-			$('#error-response').show()
-			$('#error-detail').html(err)
-			$('#reveal-bid').prop('disabled', false)
-		} else {
-			let c = $('#reveal .alert-success')
-			let l = $('a.explorer-link', c)
-			c.show()
-			l.html(res)
-			l.attr('href', config.explorer.url + config.explorer.tx + res)
-		}
+			if(err) {
+				$('#error-response').show()
+				$('#error-detail').html(err)
+				$('#reveal-bid').prop('disabled', false)
+			} else {
+				let c = $('#reveal .alert-success')
+				let l = $('a.explorer-link', c)
+				c.show()
+				l.html(res)
+				l.attr('href', config.explorer.url + config.explorer.tx + res)
+			}
+		})
 	})
 
 	return false
@@ -230,23 +236,25 @@ function handleFinalize () {
 
 	let hash = web3.sha3(name)
 
-	registrar.finalizeAuction(hash, (err, res) => {
-		$('#loading-finalize-auction').hide()
+	window.ethereum.enable().then(() => {
+		registrar.finalizeAuction(hash, (err, res) => {
+			$('#loading-finalize-auction').hide()
 
-		if(err) {
-			$('#finalize-auction').prop('disabled', false)
-			$('#error-response').show()
-			$('#error-detail').html(err)
-			$('#finalize-auction').prop('disabled', false)
-		} else {
-			let c = $('#finalize .alert-success')
-			let l = $('a.explorer-link', c)
-    		$('#set-resolver').show()
-			// to check wether the user has finalized or not, check the deed value.
-			c.show()
-			l.html(res)
-			l.attr('href', config.explorer.url + config.explorer.tx + res)
-		}
+			if(err) {
+				$('#finalize-auction').prop('disabled', false)
+				$('#error-response').show()
+				$('#error-detail').html(err)
+				$('#finalize-auction').prop('disabled', false)
+			} else {
+				let c = $('#finalize .alert-success')
+				let l = $('a.explorer-link', c)
+					$('#set-resolver').show()
+				// to check wether the user has finalized or not, check the deed value.
+				c.show()
+				l.html(res)
+				l.attr('href', config.explorer.url + config.explorer.tx + res)
+			}
+		})
 	})
 }
 
