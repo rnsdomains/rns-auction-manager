@@ -82,7 +82,9 @@ function handleSetSubnode () {
 	let hash = namehash(node)
 	let labelHash = web3.sha3(label)
 
-	RNS.setSubnodeOwner(hash, labelHash, address, (err, res) => {
-		finalizeTx('#addr-action-loading', '#set-subnode', err, res)
+	window.ethereum.enable().then(() => {
+		RNS.setSubnodeOwner(hash, labelHash, address, (err, res) => {
+			finalizeTx('#addr-action-loading', '#set-subnode', err, res)
+		})
 	})
 }

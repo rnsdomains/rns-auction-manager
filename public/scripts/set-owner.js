@@ -42,7 +42,7 @@ function handleGetRecord () {
 	pushState(name)
 
 	RNS.owner(hash, (err, res) => {
-		$('#display-address').html(toChecksumAddress(res, config.chainId))
+		$('#display-address').html(toChecksumAddress(res, config.chainid))
 
 		if (notNullAddress(res)) {
 			$('.setter').attr('disabled', false)
@@ -70,8 +70,10 @@ function handleSetOwner () {
 
     $('.disable-on-addr-invalid').attr('disabled', true)
 
-	RNS.setOwner(hash, address, (err, res) => finalizeTx(
-		'#addr-action-loading', '#set-owner', err, res))
+	window.ethereum.enable().then(() => {
+		RNS.setOwner(hash, address, (err, res) => finalizeTx(
+			'#addr-action-loading', '#set-owner', err, res))
+		})
 
 	return false
 }

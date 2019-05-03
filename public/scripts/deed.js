@@ -110,19 +110,21 @@ function handlePayRent () {
 
 	let sha3 = web3.sha3(name)
 
-	RIF.transferAndCall(config.contracts.registrar, 1e18, '0xe1ac9915' + sha3.slice(2), (err, res) => {
-		$('#pay-rent-loading').hide()
+	window.ethereum.enable().then(() => {
+		RIF.transferAndCall(config.contracts.registrar, 1e18, '0xe1ac9915' + sha3.slice(2), (err, res) => {
+			$('#pay-rent-loading').hide()
 
-		if (err) {
-			$('#pay-rent').prop('disabled', false)
-			$('#error-message').show()
-			$('#error-detail').html(err)
-		} else {
-			var c = $('#pay-rent-tab .alert-success')
-			var l = $('a.explorer-link', c)
-			c.show()
-			l.html(res)
-			l.attr('href', config.explorer.url + config.explorer.tx + res)
-		}
+			if (err) {
+				$('#pay-rent').prop('disabled', false)
+				$('#error-message').show()
+				$('#error-detail').html(err)
+			} else {
+				var c = $('#pay-rent-tab .alert-success')
+				var l = $('a.explorer-link', c)
+				c.show()
+				l.html(res)
+				l.attr('href', config.explorer.url + config.explorer.tx + res)
+			}
+		})
 	})
 }

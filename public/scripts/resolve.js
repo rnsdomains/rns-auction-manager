@@ -58,7 +58,7 @@ function displayResolution (res) {
     let labels = name.split('.')
 
     if (notNullAddress(response)) {
-        let checksummed = typeof web3 !== 'undefined' ? toChecksumAddress(response, 37310) : response
+        let checksummed = typeof web3 !== 'undefined' ? toChecksumAddress(response, config.chainid) : response
         $('#address').html(checksummed)
         $('#qr').prop('src', 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=' + checksummed + '&choe=UTF-8')
         $('#copy').show()
