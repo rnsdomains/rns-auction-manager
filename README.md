@@ -1,3 +1,4 @@
+<img src="/logo.png" alt="logo" height="200" />
 
 # RNS Manager
 
@@ -64,14 +65,25 @@ Now browse to http://localhost:3000.
 
 > The default port specified in ``config.json`` is 3000.
 
-# Documentation
-
-For more details see the [documentation](https://docs.rns.rifos.org)
-
-# Contributors
+## Contributors
 
 - [@m-picco](https://github.com/m-picco)
 - [@ajlopez](https://github.com/ajlopez)
 - [@julianlen](https://github.com/julianlen)
 - [@ilanolkies](https://github.com/ilanolkies)
 - [@alebanzas](https://github.com/alebanzas)
+
+---
+
+## Related links
+
+- [RSK](https://rsk.co)
+    - [Docs](https://docs.rsk.co)
+- [RIF](https://rifos.org)
+    - [Docs](https://www.rifos.org/documentation/)
+    - [Whitepaper](https://docs.rifos.org/rif-whitepaper-en.pdf)
+    - [Testnet faucet](https://faucet.rifos.org)
+- RNS
+    - [Docs](https://docs.rns.rifos.org)
+    - [Manager](https://rns.rifos.org)
+    - [Testnet registrar](https://testnet.rns.rifos.org)
