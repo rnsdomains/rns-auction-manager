@@ -57,8 +57,8 @@ Set values in `config.json` file.
 ## Run locally
 
 ```bash
-npm install
-npm start
+yarn install
+yarn start
 ```
 
 Now browse to http://localhost:3000.
